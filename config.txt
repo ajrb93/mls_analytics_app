@@ -1,5 +1,5 @@
 Type=Value
 League=242
-Season=47955
-SeasonName=23
+Season=57317
+SeasonName=24
 Seasons={86668:25/26,70158:25,57317:24,47955:23}
