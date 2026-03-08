@@ -48,16 +48,25 @@ def get_website(url):
 
 def get_matches(league,season):
     matches = list()
-    i = 1
+    i = 0
     while 1:
-        url = 'https://api.sofascore.com/api/v1/unique-tournament/'+ league + '/season/' + season + '/events/round/' + str(i)
+        url = 'https://api.sofascore.com/api/v1/unique-tournament/'+ league + '/season/' + season + '/events/last/' + str(i)
         try:
             returned = get_website(url)['events']
             matches += returned
             i += 1
         except:
             break
-            
+    
+    i = 0
+    while 1:
+        url = 'https://api.sofascore.com/api/v1/unique-tournament/'+ league + '/season/' + season + '/events/next/' + str(i)
+        try: 
+            returned = get_website(url)['events']
+            matches += returned
+            i += 1
+        except:
+            break
     return matches
 
 def create_results(league,season):
