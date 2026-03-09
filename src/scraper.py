@@ -96,7 +96,7 @@ def create_results(league,season):
     results_list = results_list[results_list.status == 'finished'].match_id.astype('str').values
     schedule_list = pd.DataFrame(schedule_list,columns=['league','match_id','game_date','home','home_id','home_primary','home_secondary','home_text','away','away_id','away_primary','away_secondary','away_text'])
     schedule_list['season'] = pd.to_datetime(schedule_list.game_date,unit='s').dt.year - 2000
-    schedule_list.to_csv('data/Schedule.csv')
+    schedule_list.drop_duplicates().to_csv('data/Schedule.csv')
     return results_list
 
 def get_match(match):
