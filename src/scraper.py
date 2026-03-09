@@ -19,6 +19,7 @@ config = pd.read_csv('config.txt',sep='=').set_index('Type')
 league = config.loc['League']['Value']
 season = config.loc['Season']['Value']
 season_name = config.loc['SeasonName']['Value']
+playoff_date = config.loc['PlayoffDate']['Value']
 
 def make_columns_unique(columns):
     counts = {}
@@ -96,6 +97,8 @@ def create_results(league,season):
     results_list = results_list[results_list.status == 'finished'].match_id.astype('str').values
     schedule_list = pd.DataFrame(schedule_list,columns=['league','match_id','game_date','home','home_id','home_primary','home_secondary','home_text','away','away_id','away_primary','away_secondary','away_text'])
     schedule_list['season'] = pd.to_datetime(schedule_list.game_date,unit='s').dt.year - 2000
+    schedule_list.loc[pd.to_dateteim(schedule_list.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
+    schedule_list.loc[pd.to_dateteim(schedule_list.game_date,unit='s') < pd.to_datetime(playoff_date),'type'] = 'regular'
     schedule_list.drop_duplicates().to_csv('data/Schedule.csv')
     return results_list
 
@@ -228,6 +231,8 @@ def summarize_matches(league,match_summaries):
     summary_data = pd.concat(summary_data)
     summary_data['league'] = league
     summary_data['season'] = pd.to_datetime(summary_data.game_date,unit='s').dt.year - 2000
+    summary_data.loc[pd.to_dateteim(summary_data.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
+    summary_data.loc[pd.to_dateteim(summary_data.game_date,unit='s') < pd.to_datetime(playoff_date),'type'] = 'regular'    
     return summary_data
 
 class ColumnRenamer:
