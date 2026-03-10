@@ -1,7 +1,7 @@
 Type=Value
 League=242
-Season=57317
-SeasonName=24
-PlayoffDate=2024-10-22
+Season=70158
+SeasonName=25
+PlayoffDate=2025-10-22
 Seasons={86668:26,70158:25,57317:24,47955:23}
 Playoffs={86668:2026-12-31,70158:2025-10-22,57317:2024-10-22,47955:2023-10-25}
