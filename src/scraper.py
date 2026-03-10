@@ -94,9 +94,7 @@ def create_results(league,season):
         else:
             results_list.append([match_id,status])
     results_list = pd.DataFrame(results_list,columns=['match_id','status'])
-    results_list = results_list[results_list.status == 'finished'].match_id.astype('str').values
-    results_list.loc[pd.to_datetime(results_list.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
-    results_list.loc[pd.to_datetime(results_list.game_date,unit='s') < pd.to_datetime(playoff_date),'type'] = 'regular'    
+    results_list = results_list[results_list.status == 'finished'].match_id.astype('str').values    
     schedule_list = pd.DataFrame(schedule_list,columns=['league','match_id','game_date','home','home_id','home_primary','home_secondary','home_text','away','away_id','away_primary','away_secondary','away_text'])
     schedule_list['season'] = pd.to_datetime(schedule_list.game_date,unit='s').dt.year - 2000
     schedule_list.loc[pd.to_datetime(schedule_list.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
@@ -157,6 +155,8 @@ def extract_match_summaries(match):
                temp_awayteamscore,temp_status,home_xg,away_xg]]
     temp_df = pd.DataFrame(temp_df,columns=['match_id','game_date','home','home_id','home_primary','home_secondary','home_text','away',
                                                       'away_id','away_primary','away_secondary','away_text','home_score','away_score','status','home_xg','away_xg'])
+    temp_df.loc[pd.to_datetime(temp_df.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
+    temp_df.loc[pd.to_datetime(temp_df.game_date,unit='s') < pd.to_datetime(playoff_date),'type'] = 'regular'
     temp_df.reset_index(drop=True).to_feather(MATCH_DIR + '/' + temp_id + '.ftr')
 
 def get_stats(match):
