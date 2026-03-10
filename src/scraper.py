@@ -232,9 +232,7 @@ def summarize_matches(league,match_summaries):
 
     summary_data = pd.concat(summary_data)
     summary_data['league'] = league
-    summary_data['season'] = pd.to_datetime(summary_data.game_date,unit='s').dt.year - 2000
-    summary_data.loc[pd.to_dateteim(summary_data.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
-    summary_data.loc[pd.to_dateteim(summary_data.game_date,unit='s') < pd.to_datetime(playoff_date),'type'] = 'regular'    
+    summary_data['season'] = pd.to_datetime(summary_data.game_date,unit='s').dt.year - 2000 
     return summary_data
 
 class ColumnRenamer:
