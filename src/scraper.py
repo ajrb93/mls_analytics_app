@@ -96,10 +96,11 @@ def create_results(league,season):
     results_list = pd.DataFrame(results_list,columns=['match_id','status'])
     results_list = results_list[results_list.status == 'finished'].match_id.astype('str').values    
     schedule_list = pd.DataFrame(schedule_list,columns=['league','match_id','game_date','home','home_id','home_primary','home_secondary','home_text','away','away_id','away_primary','away_secondary','away_text'])
-    schedule_list['season'] = pd.to_datetime(schedule_list.game_date,unit='s').dt.year - 2000
-    schedule_list.loc[pd.to_datetime(schedule_list.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
-    schedule_list.loc[pd.to_datetime(schedule_list.game_date,unit='s') < pd.to_datetime(playoff_date),'type'] = 'regular'
-    schedule_list.drop_duplicates().to_csv('data/Schedule.csv')
+    if len(schedule_list) != 0:
+        schedule_list['season'] = pd.to_datetime(schedule_list.game_date,unit='s').dt.year - 2000
+        schedule_list.loc[pd.to_datetime(schedule_list.game_date,unit='s') >= pd.to_datetime(playoff_date),'type'] = 'playoff'
+        schedule_list.loc[pd.to_datetime(schedule_list.game_date,unit='s') < pd.to_datetime(playoff_date),'type'] = 'regular'
+        schedule_list.drop_duplicates().to_csv('data/Schedule.csv')
     return results_list
 
 def get_match(match):
