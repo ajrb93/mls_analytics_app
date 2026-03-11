@@ -77,7 +77,7 @@ def create_results(league,season):
     for match in results:
         match_id = match['id']
         status = match['status']['type']
-        if (status == 'notstarted') | (status == 'inprogress'):
+        if (status == 'notstarted') | (status == 'inprogress') | (status == 'postponed'):
             game_time = match['startTimestamp']
             temp_hometeamname = match['homeTeam']['name']
             temp_hometeamid = match['homeTeam']['id']
