@@ -86,8 +86,8 @@ def adjust_xg_xga(xg, xga, target_rating):
 
 def add_initial_season_ratings(team,team_ratings,season,team_initializations,transfer_vals):
     temp_season = int('20' + season)
-    season_start_date = pd.to_datetime(temp_season + '-01-01').date()
-    season_transfer_date = pd.to_datetime(temp_season + '-01-02').date()
+    season_start_date = pd.to_datetime(str(temp_season) + '-01-01').date()
+    season_transfer_date = pd.to_datetime(str(temp_season) + '-01-02').date()
     previous_season = str(int(season)-1)
 
     if team in team_ratings and previous_season in team_ratings[team]:
