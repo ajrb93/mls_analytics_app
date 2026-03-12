@@ -1,31 +1,31 @@
 team,season,ORtg,DRtg
-Cincinnati,23,1.49,1.58
-Orlando,23,1.31,1.39
-Columbus,23,1.49,1.33
-St. Louis,23,1.5,1.5
-Philadelphia,23,1.56,1.45
-New England,23,1.49,1.56
-Seattle,23,1.41,1.46
-Los Angeles,23,1.79,1.31
-Houston,23,1.28,1.63
-Atlanta,23,1.74,1.40
-Salt Lake,23,1.42,1.46
-Nashville,23,1.41,1.44
-Vancouver,23,1.29,1.50
-Dallas,23,1.32,1.43
-Kansas City,23,1.40,1.32
-San Jose,23,1.51,1.60
-NY Red Bulls,23,1.53,1.10
-Portland,23,1.36,1.63
-Charlotte,23,1.31,1.44
-Montreal,23,1.54,1.13
-Minnesota,23,1.44,1.60
-NY City,23,1.63,1.28
+FC Cincinnati,23,1.49,1.58
+Orlando City SC,23,1.31,1.39
+Columbus Crew,23,1.49,1.33
+St.Louis City,23,1.5,1.5
+Philadelphia Union,23,1.56,1.45
+New England Revolution,23,1.49,1.56
+Seattle Sounders FC,23,1.41,1.46
+Los Angeles FC,23,1.79,1.31
+Houston Dynamo,23,1.28,1.63
+Atlanta United,23,1.74,1.40
+Real Salt Lake,23,1.42,1.46
+Nashville SC,23,1.41,1.44
+Vancouver Whitecaps,23,1.29,1.50
+FC Dallas,23,1.32,1.43
+Sporting Kansas City,23,1.40,1.32
+San Jose Earthquakes,23,1.51,1.60
+New York Red Bulls,23,1.53,1.10
+Portland Timbers,23,1.36,1.63
+Charlotte FC,23,1.31,1.44
+CF Montréal,23,1.54,1.13
+Minnesota United,23,1.44,1.60
+New York City FC,23,1.63,1.28
 DC United,23,1.19,1.69
-Chicago,23,1.41,1.39
-Austin,23,1.51,1.45
+Chicago Fire,23,1.41,1.39
+Austin FC,23,1.51,1.45
 LA Galaxy,23,1.60,1.36
-Inter Miami,23,1.32,1.61
-Colorado,23,1.44,1.43
-Toronto,23,1.34,1.69
-San Diego,25,1.5,1.5
+Inter Miami CF,23,1.32,1.61
+Colorado Rapids,23,1.44,1.43
+Toronto FC,23,1.34,1.69
+San Diego FC,25,1.5,1.5
