@@ -67,10 +67,10 @@ def define_dates_ratings(results):
     past_dates = results.game_date.drop_duplicates().sort_values().dt.date.values
     years = results.game_date.dt.year.drop_duplicates().sort_values()
     for year in years:
-        past_dates = np.append(past_dates,pd.to_datetime(str(year)+'-08-01').date())
+        past_dates = np.append(past_dates,pd.to_datetime(str(year)+'-01-01').date())
     past_dates = np.sort(past_dates)
 
-    if past_dates[-1] == pd.to_datetime(str(years.iloc[-1])+'-08-01').date():
+    if past_dates[-1] == pd.to_datetime(str(years.iloc[-1])+'-01-01').date():
         past_dates = past_dates[:-1]
     
     return past_dates
@@ -87,8 +87,8 @@ def adjust_xg_xga(xg, xga, target_rating):
 def add_initial_season_ratings(team,team_ratings,season,team_initializations,transfer_vals):
     temp_season = int('20' + season)
     temp_season = str(temp_season-1) + '-' + str(temp_season)
-    season_start_date = pd.to_datetime(temp_season.split('-')[0] +'-08-01').date()
-    season_transfer_date = pd.to_datetime(temp_season.split('-')[0]+'-08-02').date()
+    season_start_date = pd.to_datetime(temp_season.split('-')[0] +'-01-01').date()
+    season_transfer_date = pd.to_datetime(temp_season.split('-')[0]+'-01-02').date()
     previous_season = str(int(season)-1)
 
     if team in team_ratings and previous_season in team_ratings[team]:
@@ -165,13 +165,13 @@ def normalize_ratings(team_ratings, target_date):
 def calculate_ratings(past_dates,transfer_vals,team_initializations,season_mapping,total_goals,home_field,results,update_rate):
     team_ratings = {}
     for date in past_dates:
-        if date.month == 8 and date.day == 1:
+        if date.month == 1 and date.day == 1:
             season = str(date.year + 1)[2:]
             print(season)
             for team in transfer_vals[transfer_vals.season == season].team.values:
                 add_initial_season_ratings(team,team_ratings,season,team_initializations,transfer_vals)    
-            normalize_ratings(team_ratings, pd.to_datetime(f"{date.year}-08-01").date())
-            normalize_ratings(team_ratings, pd.to_datetime(f"{date.year}-08-02").date())
+            normalize_ratings(team_ratings, pd.to_datetime(f"{date.year}-01-01").date())
+            normalize_ratings(team_ratings, pd.to_datetime(f"{date.year}-01-02").date())
         else:
             season = season_mapping[pd.to_datetime(date)]
             total_goals_season = total_goals[season]
@@ -186,11 +186,11 @@ def define_dates_sims(results):
     past_dates = results.game_date.drop_duplicates().sort_values().dt.date.values
     years = results.game_date.dt.year.drop_duplicates().sort_values()
     for year in years:
-        past_dates = np.append(past_dates,pd.to_datetime(str(year)+'-08-01').date())
-        past_dates = np.append(past_dates,pd.to_datetime(str(year)+'-08-02').date())
+        past_dates = np.append(past_dates,pd.to_datetime(str(year)+'-01-01').date())
+        past_dates = np.append(past_dates,pd.to_datetime(str(year)+'-01-02').date())
     past_dates = np.sort(past_dates)
 
-    if past_dates[-2] == pd.to_datetime(str(years.iloc[-1])+'-08-01').date():
+    if past_dates[-2] == pd.to_datetime(str(years.iloc[-1])+'-01-01').date():
         past_dates = past_dates[:-2]
     return past_dates
 
@@ -359,10 +359,7 @@ def simulate_individual_matches(temp_schedule, ratings_array, team_to_idx,temp_g
 
 def simulate_matchups(sim_dates,matches,team_ratings,total_goals,home_field,n_sims):
     for date in sim_dates:
-        if date.month < 8:  # January through July
-            season = str(date.year)[2:]
-        else:  # August through December
-            season = str(date.year + 1)[2:]
+        season = str(date.year)[2:]
         
         temp_schedule, temp_results = find_matches(date, season, matches)
         temp_ratings = find_ratings_all(team_ratings, season, date)
@@ -378,10 +375,8 @@ def simulate_matchups(sim_dates,matches,team_ratings,total_goals,home_field,n_si
 
 def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,team_ratings):
     for date in sim_dates:
-        if date.month < 8:  # January through July
-            season = str(date.year)[2:]
-        else:  # August through December
-            season = str(date.year + 1)[2:]
+        season = str(date.year)[2:]
+
         temp_schedule, temp_results = find_matches(date, season, matches)
         temp_ratings = find_ratings_all(team_ratings, season, date)
         temp_goals = total_goals[season]
@@ -473,7 +468,7 @@ def run_main(update_rate = 2/38,n_sims = 10000):
     transfer_values.Value = (transfer_values.Value * 0.3 + 1.5)/3
 
     hf, tg = calculate_parameters(results)
-    results, standings = calculate_standings(results)
+    results, standings = calculate_standings(results[results.type == 'regular'])
 
     matches = pd.concat((results,schedule)).sort_values(['season','game_date'])
     season_mapping = matches[['season','game_date']].drop_duplicates()
@@ -489,7 +484,7 @@ def run_main(update_rate = 2/38,n_sims = 10000):
     prev_sims = pd.to_datetime(prev_sims).date
     sim_dates = sorted(list(set(past_dates) - set(prev_sims)))
     print(len(past_dates),len(prev_sims),len(sim_dates))
-    simulate_season(sim_dates,matches,tg,hf,n_sims,update_rate,team_ratings)
+    simulate_season(sim_dates,matches[matches.type == 'regular'],tg,hf,n_sims,update_rate,team_ratings)
     simulate_matchups(sim_dates,matches,team_ratings,tg,hf,n_sims)
     matches.reset_index(drop=True).drop(columns = ['Unnamed: 0','league']).to_feather('data/matches.ftr')
     clean_team_ratings(team_ratings).to_feather('data/team_ratings.ftr')
