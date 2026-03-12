@@ -452,7 +452,9 @@ def run_main(update_rate = 2/38,n_sims = 10000):
     results['home_P'] = (results.home_score > results.away_score).astype('int') * 3 + (results.home_score == results.away_score).astype('int')
     results['away_P'] = (results.home_score < results.away_score).astype('int') * 3 + (results.home_score == results.away_score).astype('int')
     results['home_perf'] = results.home_xg * 0.7 + results.home_score * 0.3
+    results.home_perf = results.home_perf.fillna(results.home_score)
     results['away_perf'] = results.away_xg * 0.7 + results.away_score * 0.3
+    results.away_perf = results.away_perf.fillna(results.away_score)
 
     player_stats = pd.read_feather('data/player_stats.ftr')
 
@@ -471,8 +473,8 @@ def run_main(update_rate = 2/38,n_sims = 10000):
     transfer_values.Value = (transfer_values.Value - transfer_values['mean'])/transfer_values['std']
     transfer_values.Value = (transfer_values.Value * 0.3 + 1.5)/3
 
-    hf, tg = calculate_parameters(results)
-    results, standings = calculate_standings(results[results.type == 'regular'])
+    hf, tg = calculate_parameters(results[results.type == 'regular'].reset_index(drop=True))
+    results, standings = calculate_standings(results[results.type == 'regular'].reset_index(drop=True))
 
     matches = pd.concat((results,schedule)).sort_values(['season','game_date'])
     season_mapping = matches[['season','game_date']].drop_duplicates()
