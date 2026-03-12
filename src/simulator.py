@@ -97,11 +97,11 @@ def add_initial_season_ratings(team,team_ratings,season,team_initializations,tra
     else:
         filtered = team_initializations[(team_initializations.team == team) &(team_initializations.season == season)]
                                         
-    if filtered.empty:
-        raise ValueError(f"No initialization found for {team} in {season}")
-    else:
-        starting_rankings = team_initializations[((team_initializations.team == team) & 
-                                                  (team_initializations.season == season))][['ORtg','DRtg','WinRate']].iloc[0].values
+        if filtered.empty:
+            raise ValueError(f"No initialization found for {team} in {season}")
+        else:
+            starting_rankings = team_initializations[((team_initializations.team == team) & 
+                                                    (team_initializations.season == season))][['ORtg','DRtg','WinRate']].iloc[0].values
     
     rating_adjustment = transfer_vals[(transfer_vals.team == team) & (transfer_vals.season == season)].Value.values[0]
     adjusted_rankings = np.round([starting_rankings[2] * 0.67 + rating_adjustment * 0.33],6)
