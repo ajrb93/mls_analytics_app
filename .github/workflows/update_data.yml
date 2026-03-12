@@ -27,6 +27,7 @@ jobs:
       - name: Run Scraper
         run: | 
              python src/scraper.py
+             python src/simulator.py
 
       - name: Commit and Push Dynamic Data
         run: |
