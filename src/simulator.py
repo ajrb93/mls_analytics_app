@@ -96,6 +96,11 @@ def add_initial_season_ratings(team,team_ratings,season,team_initializations,tra
         latest_date = sorted(season_data.keys())[-1]
         starting_rankings = season_data[latest_date]
     else:
+        filtered = team_initializations[(team_initializations.team == team) &(team_initializations.season == season)]
+                                        
+    if filtered.empty:
+        raise ValueError(f"No initialization found for {team} in {season}")
+    else:
         starting_rankings = team_initializations[((team_initializations.team == team) & 
                                                   (team_initializations.season == season))][['ORtg','DRtg','WinRate']].iloc[0].values
     
