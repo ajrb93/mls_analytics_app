@@ -1,7 +1,7 @@
 ,league,match_id,game_date,home,home_id,home_primary,home_secondary,home_text,away,away_id,away_primary,away_secondary,away_text,season,type
 0,242,15137894,1772911800,New England Revolution,2511,#000066,#ff0000,#ff0000,Houston Dynamo,2508,#ff6600,#ffffff,#ffffff,26,regular
 1,242,15137899,1773507600,Toronto FC,7080,#ff0000,#000000,#000000,New York Red Bulls,2506,#ffffff,#cc0000,#cc0000,26,regular
-2,242,15137911,1773514800,Atlanta United,243211,#000000,#80000a,#80000a,Philadelphia Union,39833,#000033,#999900,#999900,26,regular
+2,242,15137911,1773515700,Atlanta United,243211,#000000,#80000a,#80000a,Philadelphia Union,39833,#000033,#999900,#999900,26,regular
 3,242,15137908,1773526500,Columbus Crew,2504,#000000,#ffff00,#ffff00,Nashville SC,337612,#0f1545,#ece83a,#ece83a,26,regular
 4,242,15137903,1773531000,Charlotte FC,404108,#3180ff,#010101,#010101,Inter Miami CF,337602,#212322,#f6b5cc,#f6b5cc,26,regular
 5,242,15137906,1773531000,Orlando City SC,52237,#660099,#ffffff,#ffffff,CF Montréal,22006,#0033ff,#000000,#000000,26,regular
