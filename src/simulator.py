@@ -412,14 +412,14 @@ def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,
                 all_ga[sim] = ga
                 all_gd[sim] = gd
 
-            conf_ranks = np.zeros(len(teams), dtype=int)
-            for conf_indices in conf_masks.values():
-                conf_points = points[conf_indices]
-                conf_gd = gd[conf_indices]
-                order = np.lexsort(((-conf_gd), (-conf_points)))
-                for conf_rank, local_idx in enumerate(order, start=1):
-                    conf_ranks[conf_indices[local_idx]] = conf_rank
-            all_conf_ranks[sim] = conf_ranks
+                conf_ranks = np.zeros(len(teams), dtype=int)
+                for conf_indices in conf_masks.values():
+                    conf_points = points[conf_indices]
+                    conf_gd = gd[conf_indices]
+                    order = np.lexsort(((-conf_gd), (-conf_points)))
+                    for conf_rank, local_idx in enumerate(order, start=1):
+                        conf_ranks[conf_indices[local_idx]] = conf_rank
+                all_conf_ranks[sim] = conf_ranks
             
             sim_results = pd.DataFrame({'Points': all_points.mean(axis=0),'F': all_gf.mean(axis=0),'A': all_ga.mean(axis=0),'Goal_D': all_gd.mean(axis=0),
                                         'rank': all_ranks.mean(axis=0),'conf_rank': all_conf_ranks.mean(axis=0)}, index=teams)
