@@ -377,7 +377,7 @@ def simulate_matchups(sim_dates,matches,team_ratings,total_goals,home_field,n_si
             
             match_sims.to_feather(f'data/Sim_States/{date}_matches.ftr')
 
-def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,team_ratings):
+def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,team_ratings,conferences):
     for date in sim_dates:
         season = str(date.year)[2:]
 
@@ -393,10 +393,15 @@ def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,
             
             results_summary = summarize_matches(temp_results) if len(temp_results) > 0 else None
             all_ranks = np.zeros((n_sims, len(teams)), dtype=int)
+            all_conf_ranks = np.zeros((n_sims, len(teams)), dtype=int)
             all_points = np.zeros((n_sims, len(teams)))
             all_gf = np.zeros((n_sims, len(teams)))
             all_ga = np.zeros((n_sims, len(teams)))
             all_gd = np.zeros((n_sims, len(teams)))
+
+            team_conferences = np.array([conferences.get(team) for team in teams])
+            unique_confs = np.unique(team_conferences)
+            conf_masks = {conf: np.where(team_conferences == conf)[0] for conf in unique_confs}
             
             for sim in range(n_sims):
                 home_goals, away_goals = simulate_season_vectorized(schedule_home_idx, schedule_away_idx, ratings_array,temp_goals,temp_home_field, update_rate)
@@ -406,12 +411,24 @@ def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,
                 all_gf[sim] = gf
                 all_ga[sim] = ga
                 all_gd[sim] = gd
+
+            conf_ranks = np.zeros(len(teams), dtype=int)
+            for conf_indices in conf_masks.values():
+                conf_points = points[conf_indices]
+                conf_gd = gd[conf_indices]
+                order = np.lexsort(((-conf_gd), (-conf_points)))
+                for conf_rank, local_idx in enumerate(order, start=1):
+                    conf_ranks[conf_indices[local_idx]] = conf_rank
+            all_conf_ranks[sim] = conf_ranks
             
             sim_results = pd.DataFrame({'Points': all_points.mean(axis=0),'F': all_gf.mean(axis=0),'A': all_ga.mean(axis=0),'Goal_D': all_gd.mean(axis=0),
-                                        'rank': all_ranks.mean(axis=0)}, index=teams)
+                                        'rank': all_ranks.mean(axis=0),'conf_rank': all_conf_ranks.mean(axis=0)}, index=teams)
             for rank in range(1, len(teams) + 1):
                 sim_results[str(rank)] = (all_ranks == rank).mean(axis=0)
-            
+            max_conf_size = max(len(v) for v in conf_masks.values())
+            for rank in range(1, max_conf_size + 1):
+                sim_results[f'conf_{rank}'] = (all_conf_ranks == rank).mean(axis=0)
+
         else:
             results_summary = summarize_matches(temp_results)
             sim_results = results_summary.copy()
@@ -456,14 +473,13 @@ def run_main(update_rate = 2/38,n_sims = 10000):
     results['away_perf'] = results.away_xg * 0.7 + results.away_score * 0.3
     results.away_perf = results.away_perf.fillna(results.away_score)
 
-    player_stats = pd.read_feather('data/player_stats.ftr')
-
     color_map = results[['home','home_primary','home_secondary','home_text']].drop_duplicates().sort_values('home').set_index('home')
     color_map.to_feather('data/color_map.ftr')
 
     initial_ratings = pd.read_csv('data/Initializations.txt')
     initial_ratings.season = initial_ratings.season.astype('int').astype('str')
     initial_ratings['WinRate'] = initial_ratings.apply(lambda row: team_rating(row['ORtg'], row['DRtg']), axis=1)
+    conferences = initial_ratings.set_index('team').conference.to_dict()
 
     ##'https://www.transfermarkt.com/major-league-soccer/marktwerteverein/wettbewerb/MLS1/plus/1?stichtag=2023-08-01'
     transfer_values = pd.read_csv('data/TransferMarkt.txt')
@@ -490,7 +506,7 @@ def run_main(update_rate = 2/38,n_sims = 10000):
     prev_sims = pd.to_datetime(prev_sims).date
     sim_dates = sorted(list(set(past_dates) - set(prev_sims)))
     print(len(past_dates),len(prev_sims),len(sim_dates))
-    simulate_season(sim_dates,matches[matches.type == 'regular'],tg,hf,n_sims,update_rate,team_ratings)
+    simulate_season(sim_dates,matches[matches.type == 'regular'],tg,hf,n_sims,update_rate,team_ratings,conferences)
     simulate_matchups(sim_dates,matches,team_ratings,tg,hf,n_sims)
     matches.reset_index(drop=True).drop(columns = ['Unnamed: 0','league']).to_feather('data/matches.ftr')
     clean_team_ratings(team_ratings).to_feather('data/team_ratings.ftr')

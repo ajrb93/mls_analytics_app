@@ -12,7 +12,7 @@ from io import BytesIO
 import numpy as np
 
 # --- 1. CONFIG & COMPACT STYLING ---
-st.set_page_config(layout="wide", page_title="English Premier League")
+st.set_page_config(layout="wide", page_title="Major League Soccer")
 
 # CUSTOM CSS: Shrinks headers, table padding, and overall container gaps
 st.markdown("""
@@ -69,11 +69,12 @@ def load_standings_sims():
     standings_sims.Sim_Date = pd.to_datetime(standings_sims.Sim_Date).dt.date
     standings_sims = standings_sims.fillna(0)
     standings_sims['Champ'] = standings_sims['1']
-    standings_sims['CL'] = standings_sims[['1','2','3','4','5']].sum(axis=1)
-    standings_sims['Rel'] = standings_sims[['18','19','20']].sum(axis=1)
+    standings_sims['HomeField'] = standings_sims[['conf_1','conf_2','conf_3','conf_4']].sum(axis=1)
+    standings_sims['Playoffs'] = standings_sims[['conf_1','conf_2','conf_3','conf_4','conf_5','conf_6','conf_7','conf_8','conf_9']].sum(axis=1)
 
-    standings_sims['range'] = standings_sims[['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']].apply(credible_range_str, axis=1)
-    standings_sims['season'] = (pd.to_datetime(standings_sims.Sim_Date).dt.year + (pd.to_datetime(standings_sims.Sim_Date).dt.month >= 8).astype('int')).astype('str').str[2:]
+    standings_sims['range'] = standings_sims[['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25',
+                                               '26','27','28','29','30']].apply(credible_range_str, axis=1)
+    standings_sims['season'] = (pd.to_datetime(standings_sims.Sim_Date).dt.year).astype('str').str[2:]
     
     match_sims = []
     for file in match_files:
@@ -682,7 +683,7 @@ with tab_standings:
     col1, col2 = st.columns([2,3])
     # --- COLUMN 1: LEFT ---
     with col1:
-        subcol1, subcol2, subcol3 = st.columns([1,1,1])
+        subcol1, subcol2, subcol3, subcol4 = st.columns([0.25,1,1,1])
         with subcol1:
             season = sorted(standings_sims['season'].unique(), reverse=True)
             selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker",label_visibility="collapsed")
@@ -692,6 +693,9 @@ with tab_standings:
         with subcol3:
             start_dates = sorted(standings_sims[(standings_sims['season'] == selected_season) & (standings_sims['Sim_Date'] < selected_end_date)]['Sim_Date'].unique(),reverse=True)
             selected_start_date = st.selectbox("Select Relative Date",options=start_dates,index=len(start_dates)-2, key='start_date_picker',label_visibility='collapsed')
+        with subcol4:
+            options = ['Overall','Eastern','Western']
+            selected_type = st.selectbox('Select Conference',options=options,index=0,key='type_picker',label_visibility='collapsed')
         matches_df = create_matches_df(match_sims,matches,team_ratings,selected_season,selected_end_date)
         fig = create_results_figure(matches_df)
         st.markdown("<p style='font-size:14px; font-weight:bold; margin-bottom:2px;'>Results</p>", unsafe_allow_html=True)
@@ -708,6 +712,12 @@ with tab_standings:
 
     with col2:
         standings_df = create_standings_file(standings,standings_sims,team_ratings,selected_season,selected_end_date,selected_start_date).sort_values(['P','GD'],ascending=False)
+        if selected_type == 'Eastern':
+            standings_df = standings_df[standings_df.conference == 'Eastern']
+        elif selected_type == 'Western':
+            standings_df = standings_df[standings_df.conference == 'Western']
+        else: 
+            pass
         fig = plot_standings_table(standings_df.drop(columns='season'))
         buf = BytesIO()
         fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)

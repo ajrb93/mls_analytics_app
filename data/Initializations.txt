@@ -1,31 +1,31 @@
-team,season,ORtg,DRtg
-FC Cincinnati,23,1.49,1.58
-Orlando City SC,23,1.31,1.39
-Columbus Crew,23,1.49,1.33
-St.Louis City,23,1.5,1.5
-Philadelphia Union,23,1.56,1.45
-New England Revolution,23,1.49,1.56
-Seattle Sounders FC,23,1.41,1.46
-Los Angeles FC,23,1.79,1.31
-Houston Dynamo,23,1.28,1.63
-Atlanta United,23,1.74,1.40
-Real Salt Lake,23,1.42,1.46
-Nashville SC,23,1.41,1.44
-Vancouver Whitecaps,23,1.29,1.50
-FC Dallas,23,1.32,1.43
-Sporting Kansas City,23,1.40,1.32
-San Jose Earthquakes,23,1.51,1.60
-New York Red Bulls,23,1.53,1.10
-Portland Timbers,23,1.36,1.63
-Charlotte FC,23,1.31,1.44
-CF Montréal,23,1.54,1.13
-Minnesota United,23,1.44,1.60
-New York City FC,23,1.63,1.28
-DC United,23,1.19,1.69
-Chicago Fire,23,1.41,1.39
-Austin FC,23,1.51,1.45
-LA Galaxy,23,1.60,1.36
-Inter Miami CF,23,1.32,1.61
-Colorado Rapids,23,1.44,1.43
-Toronto FC,23,1.34,1.69
-San Diego FC,25,1.5,1.5
+team,conference,season,ORtg,DRtg
+FC Cincinnati,Eastern,23,1.49,1.58
+Orlando City SC,Eastern,23,1.31,1.39
+Columbus Crew,Eastern,23,1.49,1.33
+St.Louis City,Western,23,1.5,1.5
+Philadelphia Union,Eastern,23,1.56,1.45
+New England Revolution,Eastern,23,1.49,1.56
+Seattle Sounders FC,Western,23,1.41,1.46
+Los Angeles FC,Western,23,1.79,1.31
+Houston Dynamo,Western,23,1.28,1.63
+Atlanta United,Eastern,23,1.74,1.40
+Real Salt Lake,Western,23,1.42,1.46
+Nashville SC,Eastern,23,1.41,1.44
+Vancouver Whitecaps,Western,23,1.29,1.50
+FC Dallas,Western,23,1.32,1.43
+Sporting Kansas City,Western,23,1.40,1.32
+San Jose Earthquakes,Western,23,1.51,1.60
+New York Red Bulls,Eastern,23,1.53,1.10
+Portland Timbers,Western,23,1.36,1.63
+Charlotte FC,Eastern,23,1.31,1.44
+CF Montréal,Eastern,23,1.54,1.13
+Minnesota United,Western,23,1.44,1.60
+New York City FC,Eastern,23,1.63,1.28
+DC United,Eastern,23,1.19,1.69
+Chicago Fire,Eastern,23,1.41,1.39
+Austin FC,Western,23,1.51,1.45
+LA Galaxy,Western,23,1.60,1.36
+Inter Miami CF,Eastern,23,1.32,1.61
+Colorado Rapids,Western,23,1.44,1.43
+Toronto FC,Eastern,23,1.34,1.69
+San Diego FC,Western,25,1.5,1.5
