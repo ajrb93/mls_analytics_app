@@ -438,6 +438,22 @@ def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,
             for team in results_summary.index:
                 actual_rank = results_summary.loc[team, 'rank']
                 sim_results.loc[team, str(actual_rank)] = 1.0
+
+            conf_groups = {}
+            for team in results_summary.index:
+                conf = conferences.get(team)
+                conf_groups.setdefault(conf, []).append(team)
+
+            max_conf_size = max(len(v) for v in conf_groups.values())
+            for rank in range(1, max_conf_size + 1):
+                sim_results[f'conf_{rank}'] = 0.0
+
+            sim_results['conf_rank'] = 0
+            for conf_teams in conf_groups.values():
+                conf_table = results_summary.loc[conf_teams].sort_values('rank')
+                for conf_rank, team in enumerate(conf_table.index, start=1):
+                    sim_results.loc[team, 'conf_rank'] = conf_rank
+                    sim_results.loc[team, f'conf_{conf_rank}'] = 1.0
                 
         sim_results.to_feather(f'data/Sim_States/{date}.ftr')
 
