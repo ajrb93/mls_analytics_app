@@ -718,7 +718,7 @@ with tab_standings:
 
     with col2:
         standings_df = create_standings_file(standings,standings_sims,team_ratings,selected_season,selected_end_date,selected_start_date).sort_values(['P','GD'],ascending=False)
-        standings_df['Conference'] = standings_df.Team.replace(conferences)
+        standings_df['conference'] = standings_df.Team.replace(conferences)
         if selected_type == 'Eastern':
             standings_df = standings_df[standings_df.conference == 'Eastern']
         elif selected_type == 'Western':
