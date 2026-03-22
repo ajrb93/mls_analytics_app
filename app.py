@@ -679,6 +679,9 @@ team_ratings = team_ratings[['Season','Date']].drop_duplicates().merge(team_rati
 team_ratings[['A','B','C']] = team_ratings.groupby(['Season','Team'])[['A','B','C']].ffill()
 standings_sims, match_sims = load_standings_sims()
 
+initial_ratings = pd.read_csv('data/Initializations.txt')
+conferences = initial_ratings.set_index('team').conference.to_dict()
+
 # --- MAIN DASHBOARD ---
 tab_standings, tab_team = st.tabs([f"Standings", "Team Profile"])
 
@@ -715,6 +718,7 @@ with tab_standings:
 
     with col2:
         standings_df = create_standings_file(standings,standings_sims,team_ratings,selected_season,selected_end_date,selected_start_date).sort_values(['P','GD'],ascending=False)
+        standings_df['Conference'] = standings_df.Team.replace(conferences)
         if selected_type == 'Eastern':
             standings_df = standings_df[standings_df.conference == 'Eastern']
         elif selected_type == 'Western':
