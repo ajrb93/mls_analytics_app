@@ -88,18 +88,18 @@ def create_standings_file(standings,standings_sims,team_ratings,season,max_date,
     temp = standings[standings.season == season][['season','F','F_score','A_score','F_P','F_xg','A_xg','F_xPts','oRTG','dRTG','nRTG']].reset_index(drop=True)
     temp['GD'] = temp.F_score - temp.A_score
     temp['xGD'] = temp.F_xg - temp.A_xg
-    temp_sim = standings_sims[standings_sims.Sim_Date == max_date].set_index('index')[['Points','Champ','CL','Rel','range']]
-    temp_sim2 = standings_sims[standings_sims.Sim_Date == min_date].set_index('index')[['Points','Champ','CL','Rel']]
+    temp_sim = standings_sims[standings_sims.Sim_Date == max_date].set_index('index')[['Points','Champ','HomeField','Playoffs','range']]
+    temp_sim2 = standings_sims[standings_sims.Sim_Date == min_date].set_index('index')[['Points','Champ','HomeField','Playoffs']]
     temp_sim2 = temp_sim - temp_sim2
     temp_sim3 = team_ratings[team_ratings.Date == max_date].set_index('Team')[['Date','A','B','C']]
     temp_sim4 = team_ratings[team_ratings.Date == min_date].set_index('Team')[['A','B','C']]
     temp_sim4 = temp_sim3 - temp_sim4
     temp = temp.merge(temp_sim.reset_index(),left_on='F',right_on='index').merge(temp_sim2.reset_index(),left_on='F',right_on='index',suffixes=['','_c']).merge(
         temp_sim3.reset_index(),left_on='F',right_on='Team').merge(temp_sim4.reset_index(),left_on='F',right_on='Team',suffixes=['','_c'])
-    temp = temp[['season','Team','C','C_c','A','A_c','B','B_c','nRTG','oRTG','dRTG','Points','Points_c','F_P','F_xPts','GD','xGD','Champ','Champ_c','CL','CL_c','Rel',
-                 'Rel_c','range']].rename(
+    temp = temp[['season','Team','C','C_c','A','A_c','B','B_c','nRTG','oRTG','dRTG','Points','Points_c','F_P','F_xPts','GD','xGD','Champ','Champ_c','HomeField',
+                 'HomeField_c','Playoffs','Playoffs_c','range']].rename(
                      columns={'A':'oPRE','A_c':'oPREΔ','B':'dPRE','B_c':'dPREΔ','F_P':'P','F_xPts':'xPts','Points':'Proj','Points_c':'ProjΔ','C':'nPRE','C_c':'nPREΔ',
-                               'Champ':'Win','Champ_c':'WinΔ','CL_c':'CLΔ','Rel_c':'RelΔ'})
+                               'Champ':'Win','Champ_c':'WinΔ','HomeField_c':'HFΔ','Playoffs_c':'PlayoffΔ'})
     return temp
 
 def hex_to_rgb(value):
@@ -149,8 +149,8 @@ def plot_standings_table(standings_df):
     ax.annotate('Points',     (6.15/10, 0.97), va='center', ha='center', size=10, weight='bold')
     ax.annotate('GD',         (6.7/10,  0.97), va='center', ha='center', size=10, weight='bold')
     ax.annotate('Champ',      (7.45/10, 0.97), va='center', ha='center', size=10, weight='bold')
-    ax.annotate('CL',         (8.3/10,  0.97), va='center', ha='center', size=10, weight='bold')
-    ax.annotate('Rele.',      (9.1/10,  0.97), va='center', ha='center', size=10, weight='bold')
+    ax.annotate('HF',         (8.3/10,  0.97), va='center', ha='center', size=10, weight='bold')
+    ax.annotate('Playoff',      (9.1/10,  0.97), va='center', ha='center', size=10, weight='bold')
     ax.annotate('Range',      (9.75/10, 0.97), va='center', ha='center', size=10, weight='bold')
 
     # --- VERTICAL DIVIDERS ---
@@ -172,7 +172,10 @@ def plot_standings_table(standings_df):
         team = row['Team']
 
         # Team name
-        ax.annotate(team, (0.01, i_loc), va='center', ha='left', size=9, fontweight='bold',color=team_colors[team]['home_secondary'])
+        if len(team) > 16:
+            ax.annotate(team, (0.01, i_loc), va='center', ha='left', size=7, fontweight='bold',color=team_colors[team]['home_secondary'])
+        else:
+            ax.annotate(team, (0.01, i_loc), va='center', ha='left', size=9, fontweight='bold',color=team_colors[team]['home_secondary'])
         ax.add_patch(Rectangle((0,i_loc+space/2),1.15/10,-space,facecolor=team_colors[team]['home_primary']))
         ax.add_patch(Rectangle((1.15/10, i_loc - space/2), 1, space, facecolor = mean_color(mean_color(team_colors[team]['home_primary'],'#FFFFFF'),'#FFFFFF')))
 
@@ -222,14 +225,14 @@ def plot_standings_table(standings_df):
         ax.annotate(f"({'+' if row['WinΔ'] > 0 else ''}{row['WinΔ']:.0%})", (7.65/10, i_loc), va='center', ha='center', size=9, color=delta_color)
 
         # CL + CLΔ
-        ax.annotate(f"{row['CL']:.0%}", (8.05/10, i_loc), va='center', ha='center', size=9)
-        delta_color = 'darkgreen' if row['CLΔ'] > 0 else 'darkred'
-        ax.annotate(f"({'+' if row['CLΔ'] > 0 else ''}{row['CLΔ']:.0%})", (8.45/10, i_loc), va='center', ha='center', size=9, color=delta_color)
+        ax.annotate(f"{row['HomeField']:.0%}", (8.05/10, i_loc), va='center', ha='center', size=9)
+        delta_color = 'darkgreen' if row['HFΔ'] > 0 else 'darkred'
+        ax.annotate(f"({'+' if row['HFΔ'] > 0 else ''}{row['HFΔ']:.0%})", (8.45/10, i_loc), va='center', ha='center', size=9, color=delta_color)
 
         # Rel + RelΔ
-        ax.annotate(f"{row['Rel']:.0%}", (8.85/10, i_loc), va='center', ha='center', size=9)
-        delta_color = 'darkgreen' if row['RelΔ'] < 0 else 'darkred'
-        ax.annotate(f"({'+' if row['RelΔ'] < 0 else ''}{row['RelΔ']*-1:.0%})", (9.25/10, i_loc), va='center', ha='center', size=9, color=delta_color)
+        ax.annotate(f"{row['Playoffs']:.0%}", (8.85/10, i_loc), va='center', ha='center', size=9)
+        delta_color = 'darkgreen' if row['PlayoffΔ'] > 0 else 'darkred'
+        ax.annotate(f"({'+' if row['PlayoffΔ'] > 0 else ''}{row['PlayoffΔ']:.0%})", (9.25/10, i_loc), va='center', ha='center', size=9, color=delta_color)
 
         # Range
         ax.annotate(row['range'], (9.75/10, i_loc), va='center', ha='center', size=9)
