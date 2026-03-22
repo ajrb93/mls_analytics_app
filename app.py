@@ -328,7 +328,7 @@ def plot_ratings_scatter(standings_df, team_colors):
 def plot_position_heatmap(standings_sims, standings_df, selected_end_date, team_colors):
     # Get position probabilities for selected date, ordered by current standings
     sim_data = standings_sims[standings_sims.Sim_Date == selected_end_date].set_index('index')
-    position_cols = [str(i) for i in range(1, 21)]
+    position_cols = [str(i) for i in range(1, 31)]
     
     # Order teams by current points (same order as standings table)
     teams_ordered = standings_df['Team'].tolist()
@@ -337,7 +337,7 @@ def plot_position_heatmap(standings_sims, standings_df, selected_end_date, team_
 
     fig = go.Figure(data=go.Heatmap(
         z=heatmap_data.values,
-        x=list(range(1, 21)),
+        x=list(range(1, 31)),
         y=teams_ordered,
         colorscale='RdYlGn',
         showscale=False,
@@ -689,7 +689,7 @@ with tab_standings:
     col1, col2 = st.columns([2,3])
     # --- COLUMN 1: LEFT ---
     with col1:
-        subcol1, subcol2, subcol3, subcol4 = st.columns([0.25,1,1,1])
+        subcol1, subcol2, subcol3, subcol4 = st.columns([0.5,1,1,0.75])
         with subcol1:
             season = sorted(standings_sims['season'].unique(), reverse=True)
             selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker",label_visibility="collapsed")
