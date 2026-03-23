@@ -841,14 +841,16 @@ with tab_team:
         with subcol2:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
         multi_standings = create_multi_year_standings(team_ratings,standings)
+        print(len(multi_standings))
         multi_standings = multi_standings[multi_standings.Team == selected_team]
-        fig = plot_standings_table(multi_standings)
-        buf = BytesIO()
-        fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
-        buf.seek(0)
-        img_base64 = base64.b64encode(buf.read()).decode()
-        st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
-        plt.close(fig)
+        print(len(multi_standings))
+        #fig = plot_standings_table(multi_standings)
+        #buf = BytesIO()
+        #fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
+        #buf.seek(0)
+        #img_base64 = base64.b64encode(buf.read()).decode()
+        #st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
+        #plt.close(fig)
 
 
 
