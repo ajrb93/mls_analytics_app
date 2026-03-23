@@ -852,7 +852,7 @@ with tab_team:
         plt.close(fig)
         subcol3, subcol4 = st.columns([3,1.5])
         with subcol3:
-            st.markdown("<p style='font-size:14px; font-weight:bold; margin-bottom:2px;'>Schedule/Results</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-size:26px; font-weight:bold; margin-bottom:0px;'>Schedule/Results</p>", unsafe_allow_html=True)
         with subcol4:
             season = sorted(standings['season'].unique(), reverse=True)
             selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
