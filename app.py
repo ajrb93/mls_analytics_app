@@ -835,7 +835,7 @@ with tab_standings:
 with tab_team:
     col1, col2 = st.columns([2,3])
     with col1:
-        subcol1, subcol2 = st.columns([2.5,1.5])
+        subcol1, subcol2 = st.columns([3,1.5])
         with subcol1:
             teams = sorted(standings.F.unique())
             selected_team = st.selectbox('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
@@ -843,13 +843,13 @@ with tab_team:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
         multi_standings = create_multi_year_standings(team_ratings,standings)
         multi_standings = multi_standings[multi_standings.Team == selected_team]
-        #fig = plot_history_table(multi_standings)
-        #buf = BytesIO()
-        #fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
-        #buf.seek(0)
-        #img_base64 = base64.b64encode(buf.read()).decode()
-        #st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
-        #plt.close(fig)
+        fig = plot_history_table(multi_standings)
+        buf = BytesIO()
+        fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
+        buf.seek(0)
+        img_base64 = base64.b64encode(buf.read()).decode()
+        st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
+        plt.close(fig)
 
 
 
