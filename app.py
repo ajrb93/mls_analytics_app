@@ -38,6 +38,8 @@ st.markdown("""
         font-size: 12px !important; 
         font-weight: bold !important; 
     }
+    .stSelectbox {margin-bottom: 0rem;}
+    .stMarkdown {margin-top: 0rem;}
     </style>
 """, unsafe_allow_html=True)
 
