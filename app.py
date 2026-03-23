@@ -850,8 +850,9 @@ with tab_team:
         img_base64 = base64.b64encode(buf.read()).decode()
         st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
         plt.close(fig)
-
-
-
-        #season = sorted(standings_sims['season'].unique(), reverse=True)
-        #selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
+        subcol3, subcol4 = st.columns([3,1.5])
+        with subcol3:
+            st.markdown("<p style='font-size:14px; font-weight:bold; margin-bottom:2px;'>Schedule/Results</p>", unsafe_allow_html=True)
+        with subcol4:
+            season = sorted(standings['season'].unique(), reverse=True)
+            selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
