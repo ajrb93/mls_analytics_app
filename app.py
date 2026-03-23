@@ -675,7 +675,7 @@ def create_multi_year_standings(team_ratings,standings):
     temp_season_ratings[['A_C','B_C','C_C']] = temp_season_ratings[['A','B','C']] - temp_season_ratings.groupby('Team')[['A','B','C']].shift(periods=1)
 
     temp_standings = standings.copy()
-    temp_standings.season = temp_staandings.season.astype('str')
+    temp_standings.season = temp_standings.season.astype('str')
     temp_standings['GD'] = temp_standings.F_score - temp_standings.A_score
     temp_standings['xGD'] = temp_standings.F_xg - temp_standings.A_xg
     temp_standings = temp_standings.sort_values(['F_P','GD','F_score'],ascending=False)
@@ -835,7 +835,7 @@ with tab_standings:
 with tab_team:
     col1, col2 = st.columns([2,3])
     with col1:
-        subcol1, subcol2 = st.columns([3,1])
+        subcol1, subcol2 = st.columns([2.5,1.5])
         with subcol1:
             teams = sorted(standings.F.unique())
             selected_team = st.selectbox('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
