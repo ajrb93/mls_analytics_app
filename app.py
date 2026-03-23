@@ -667,6 +667,23 @@ def create_mvp_figure(plot_df):
         i_loc -= space
     return fig
 
+def create_multi_year_standings(team_ratings,standings):
+    temp1 = team_ratings.groupby('Team').head(1).reset_index()
+    temp1.Season = (temp1.Season.astype('int') - 1).astype('str')
+    temp2 = team_ratings.groupby(['Team','Season']).tail(1).reset_index()
+    temp_season_ratings = pd.concat((temp1,temp2))[['Season','Team','A','B','C']].sort_values(['Team','Season'])
+    temp_season_ratings[['A_C','B_C','C_C']] = temp_season_ratings[['A','B','C']] - temp_season_ratings.groupby('Team')[['A','B','C']].shift(periods=1)
+
+    temp_standings = standings.copy()
+    temp_standings['GD'] = temp_standings.F_score - temp_standings.A_score
+    temp_standings['xGD'] = temp_standings.F_xg - temp_standings.A_xg
+    temp_standings = temp_standings.sort_values(['F_P','GD','F_score'],ascending=False)
+    temp_standings['Rank'] = 1
+    temp_standings.Rank = temp_standings.groupby('season').Rank.cumsum()
+    temp_standings = temp_standings[['season','F','F_P','F_xPts','GD','xGD','Rank']].rename(
+        columns={'season':'Season','F':'Team'})
+    return temp_season_ratings.merge(temp_standings).sort_values('Season',ascending=False)
+
 standings = pd.read_feather('data/standings.ftr')
 color_map = pd.read_feather('data/color_map.ftr')
 color_map['home_secondary'] = color_map.apply(lambda row: '#FFFFFF' if row['home_primary'] == row['home_secondary'] else row['home_secondary'],axis=1)
@@ -750,6 +767,9 @@ with tab_team:
             selected_team = st.selectbox('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
         with subcol2:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
+        multi_standings = create_multi_year_standings(team_ratings,standings)
+        multi_standings = multi_standings[multi_standings.Team == selected_team]
+        st.dataframe(multi_standings.drop(columns='Team'))
 
 
         #season = sorted(standings_sims['season'].unique(), reverse=True)
