@@ -38,8 +38,6 @@ st.markdown("""
         font-size: 12px !important; 
         font-weight: bold !important; 
     }
-    .stSelectbox {margin-bottom: 0rem;}
-    .stMarkdown {margin-top: 0rem;}
     </style>
 """, unsafe_allow_html=True)
 
@@ -688,7 +686,7 @@ def create_multi_year_standings(team_ratings,standings):
     return temp_season_ratings.merge(temp_standings,on=['Team','Season']).sort_values('Season',ascending=False)
 
 def plot_history_table(results):
-    fig, ax = plt.subplots(figsize=(5,1.5))
+    fig, ax = plt.subplots(figsize=(5,1))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis('off')
