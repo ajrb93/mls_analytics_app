@@ -684,6 +684,79 @@ def create_multi_year_standings(team_ratings,standings):
         columns={'season':'Season','F':'Team'})
     return temp_season_ratings.merge(temp_standings).sort_values('Season',ascending=False)
 
+def plot_standings_table(results):
+    fig, ax = plt.subplots(figsize=(5,1.5))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis('off')
+
+    # Column x positions
+    col_x = {
+        '1':   0.01,
+        'Rk':0.09,
+        'Points':   0.14,
+        'GD':0.29,
+        'Off':0.44,
+        'Def':0.62,
+        'Skill':0.80
+    }
+
+    # Headers
+    header_y = (len(results)+0.5)/(len(results)+1)
+    for col, x in col_x.items():
+        if (col == '1') | (col == '2'):
+            pass
+        else:
+            ha = 'left'
+            
+            ax.annotate(col, (x , header_y), va='center', ha=ha, size=7, weight='bold')
+
+    # Row layout
+    top = len(results)/(len(results)+0.8)
+    ax.axhline(top, color='black', linewidth=0.8)
+    bottom_margin = 1/(len(results)+1)/10
+    total_height = top - bottom_margin
+    space = total_height / len(results)
+    i_loc = top - space / 2
+
+    norm_rk = mcolors.TwoSlopeNorm(vmin=1,vcenter=15,vmax=30)
+    
+
+    # Vertical dividers (between groups)
+    for x in col_x.values():
+        ax.vlines(x-0.005, bottom_margin, top, color='black', linewidth=0.5)
+
+
+    for _, row in results.iterrows():
+        ax.annotate('20'+str(row['Season']), (col_x['1']+0.035, i_loc), va='center', ha='center', size=7)
+        ax.annotate(f"{int(row['F_P'])}", (col_x['Points']+0.035, i_loc), va='center', ha='center', size=7)
+        ax.annotate(f"{row['F_xPts']:.1f}", (col_x['Points']+0.095, i_loc), va='center', ha='center', size=7)
+        ax.annotate(f"{int(row['GD'])}", (col_x['GD']+0.035, i_loc), va='center', ha='center', size=7)
+        ax.annotate(f"{row['xGD']:.1f}", (col_x['GD']+0.095, i_loc), va='center', ha='center', size=7)
+        ax.annotate(f"{int(row['Rank'])}", (col_x['Rk']+0.02, i_loc), va='center', ha='center', size=7)
+        ax.add_patch(Rectangle((0.09-0.005, i_loc - space/2), 0.05, space,
+            facecolor=cmap_r(norm_rk(row['Rank'])) if pd.notna(row['Rank']) else 'lightgray'))
+
+        ax.annotate(f"{row['A']:.2f}", (col_x['Off']+0.035, i_loc), va='center', ha='center', size=7)
+        delta_color = 'darkgreen' if row['A_C'] > 0 else 'darkred'
+        ax.annotate(f"({'+' if row['A_C'] > 0 else ''}{row['A_C']:.0%})", (col_x['Off']+0.12, i_loc), va='center', ha='center', size=7, color=delta_color)
+        ax.add_patch(Rectangle((col_x['Off']-0.005, i_loc - space/2), 0.075, space,facecolor=cmap(norm_o(row['A']))))
+
+        ax.annotate(f"{row['B']:.2f}", (col_x['Def']+0.035, i_loc), va='center', ha='center', size=7)
+        delta_color = 'darkgreen' if row['B_C'] < 0 else 'darkred'
+        ax.annotate(f"({'+' if row['B_C'] < 0 else ''}{row['B_C']*-1:.0%})", (col_x['Def']+0.12, i_loc), va='center', ha='center', size=7, color=delta_color)
+        ax.add_patch(Rectangle((col_x['Def']-0.005, i_loc - space/2), 0.075, space,facecolor=cmap_r(norm_o(row['B']))))
+
+        ax.annotate(f"{row['C']:.0%}", (col_x['Skill']+0.035, i_loc), va='center', ha='center', size=7)
+        delta_color = 'darkgreen' if row['C_C'] > 0 else 'darkred'
+        ax.annotate(f"({'+' if row['C_C'] > 0 else ''}{row['C_C']:.0%})", (col_x['Skill']+0.12, i_loc), va='center', ha='center', size=7, color=delta_color)
+        ax.add_patch(Rectangle((col_x['Skill']-0.005, i_loc - space/2), 0.075, space,facecolor=cmap(row['C'])))
+        
+        # Row divider
+        ax.axhline(i_loc - space/2, color='black', linewidth=0.3)
+        i_loc -= space
+    return fig
+
 standings = pd.read_feather('data/standings.ftr')
 color_map = pd.read_feather('data/color_map.ftr')
 color_map['home_secondary'] = color_map.apply(lambda row: '#FFFFFF' if row['home_primary'] == row['home_secondary'] else row['home_secondary'],axis=1)
@@ -769,7 +842,14 @@ with tab_team:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
         multi_standings = create_multi_year_standings(team_ratings,standings)
         multi_standings = multi_standings[multi_standings.Team == selected_team]
-        st.dataframe(multi_standings.drop(columns='Team'))
+        fig = plot_standings_table(multi_standings)
+        buf = BytesIO()
+        fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
+        buf.seek(0)
+        img_base64 = base64.b64encode(buf.read()).decode()
+        st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
+        plt.close(fig)
+
 
 
         #season = sorted(standings_sims['season'].unique(), reverse=True)
