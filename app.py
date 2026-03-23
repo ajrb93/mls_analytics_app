@@ -742,12 +742,13 @@ with tab_standings:
             st.plotly_chart(fig_heatmap)
 
 with tab_team:
-    col1, col2 = st.columns([2,3])
+    col1, col2 = st.columns([8,1])
     with col1:
-        subcol1, subcol2 = st.columns([1,2])
-        with subcol1:
-            season = sorted(standings_sims['season'].unique(), reverse=True)
-            selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
-        with subcol2:
-            teams = sorted(standings[standings.season == selected_season].F.unique())
-            selected_team = st.selectbox('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
+        teams = sorted(standings[standings.season == selected_season].F.unique())
+        selected_team = st.segmented_control('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
+    with col2:
+        selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'])
+
+
+        #season = sorted(standings_sims['season'].unique(), reverse=True)
+        #selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
