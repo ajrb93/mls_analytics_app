@@ -675,6 +675,7 @@ def create_multi_year_standings(team_ratings,standings):
     temp_season_ratings[['A_C','B_C','C_C']] = temp_season_ratings[['A','B','C']] - temp_season_ratings.groupby('Team')[['A','B','C']].shift(periods=1)
 
     temp_standings = standings.copy()
+    temp_standings.season = temp_staandings.season.astype('str')
     temp_standings['GD'] = temp_standings.F_score - temp_standings.A_score
     temp_standings['xGD'] = temp_standings.F_xg - temp_standings.A_xg
     temp_standings = temp_standings.sort_values(['F_P','GD','F_score'],ascending=False)
@@ -682,9 +683,9 @@ def create_multi_year_standings(team_ratings,standings):
     temp_standings.Rank = temp_standings.groupby('season').Rank.cumsum()
     temp_standings = temp_standings[['season','F','F_P','F_xPts','GD','xGD','Rank']].rename(
         columns={'season':'Season','F':'Team'})
-    return temp_season_ratings.merge(temp_standings).sort_values('Season',ascending=False)
+    return temp_season_ratings.merge(temp_standings,on=['Team','Season']).sort_values('Season',ascending=False)
 
-def plot_standings_table(results):
+def plot_history_table(results):
     fig, ax = plt.subplots(figsize=(5,1.5))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
@@ -841,10 +842,8 @@ with tab_team:
         with subcol2:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
         multi_standings = create_multi_year_standings(team_ratings,standings)
-        print(len(multi_standings))
         multi_standings = multi_standings[multi_standings.Team == selected_team]
-        print(len(multi_standings))
-        #fig = plot_standings_table(multi_standings)
+        #fig = plot_history_table(multi_standings)
         #buf = BytesIO()
         #fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
         #buf.seek(0)
