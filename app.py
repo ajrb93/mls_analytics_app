@@ -763,7 +763,7 @@ with tab_team:
     with col1:
         subcol1, subcol2 = st.columns([3,1])
         with subcol1:
-            teams = sorted(standings[standings.season == selected_season].F.unique())
+            teams = sorted(standings.F.unique())
             selected_team = st.selectbox('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
         with subcol2:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
