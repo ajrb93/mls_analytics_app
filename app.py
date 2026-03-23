@@ -841,8 +841,13 @@ with tab_team:
             selected_team = st.selectbox('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
         with subcol2:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
+        st.markdown('Test1')
         multi_standings = create_multi_year_standings(team_ratings,standings)
+        if len(multi_standings) == 0:
+            st.markdown("No Length")
         multi_standings = multi_standings[multi_standings.Team == selected_team]
+        if len(multi_standings) == 0:
+            st.markdown("No Length after team filter")
         fig = plot_history_table(multi_standings)
         buf = BytesIO()
         fig.savefig(buf, format='png', bbox_inches='tight', dpi=150)
