@@ -758,6 +758,143 @@ def plot_history_table(results):
         i_loc -= space
     return fig
 
+def create_schedule_results(match_sims,matches,team_ratings,selected_season,selected_team):
+    match_sims = match_sims.sort_values('Sim_Date').groupby(['game_date','Home','Away']).tail(1)
+    match_sims = match_sims[['Sim_Date','game_date','Home','Away','h_exp','a_exp','h_win','d_win','a_win']]
+    matches = matches[matches.season == selected_season]
+    matches = matches[['game_date','home','away','home_score','away_score','home_xg','away_xg','home_P','away_P','home_perf','away_perf','home_xPts','away_xPts']]
+    matches = matches.merge(match_sims,left_on=['game_date','home','away'],right_on=['game_date','Home','Away']).drop(columns=['Home','Away'])
+
+    plot_df = matches.merge(
+        team_ratings.drop(columns=['Season','A','B']), left_on=['Sim_Date','home'], right_on=['Date','Team']).merge(
+        team_ratings.drop(columns=['Season','A','B']), left_on=['Sim_Date','away'], right_on=['Date','Team'], suffixes=['_H','_A']).drop(
+        columns=['Sim_Date','Date_H','Date_A'])
+    plot_df['Pre_Pts_H'] = plot_df.h_win * 3 + plot_df.d_win
+    plot_df['Pre_Pts_A'] = plot_df.a_win * 3 + plot_df.d_win
+
+    plot_home = plot_df[(plot_df.home == selected_team)].reset_index(drop=True)
+    plot_home['Loc'] = 'H'
+    plot_home = plot_home[['game_date','Loc','C_H','home_score','away_score','C_A','away','h_win','d_win','a_win','Pre_Pts_H','home_xPts','home_xg',
+                           'away_xg']].rename(columns={'game_date':'Date','C_H':'Rtg','C_A':'ORtg','away':'Opponent','h_win':'win','d_win':'draw',
+                                                       'a_win':'loss','Pre_Pts_H':'Exp','home_xPts':'Perf','home_xg':'xGF','away_xg':'xGA',
+                                                       'home_score':'for_score','away_score':'against_score'})
+    
+    plot_away = plot_df[(plot_df.away == selected_team)].reset_index(drop=True)
+    plot_away['Loc'] = 'A'
+    plot_away = plot_away[['game_date','Loc','C_A','home_score','away_score','C_H','home','a_win','d_win','h_win','Pre_Pts_A','away_xPts','away_xg',
+                           'home_xg']].rename(columns={'game_date':'Date','C_A':'Rtg','C_H':'ORtg','home':'Opponent','a_win':'win','d_win':'draw',
+                                                       'h_win':'loss','Pre_Pts_A':'Exp','away_xPts':'Perf','away_xg':'xGF','home_xg':'xGA',
+                                                       'away_score':'for_score','home_score':'against_score'})
+    plot_df = pd.concat((plot_home,plot_away)).sort_values('Date').reset_index(drop=True)
+    return plot_df
+
+def create_schedule_results_figure(results,selected_team):
+    results['score'] = results.for_score.astype('int').astype('str') + ' - ' + results.against_score.astype('int').astype('str')
+
+    fig_height = max(10, len(results) * 0.2)
+    fig, ax = plt.subplots(figsize=(7,fig_height))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis('off')
+
+    # Column x positions
+    col_x = {
+        'Date':   0.01,
+        'H/A':   0.13,
+        'Rtg':    0.16,
+        'Score':   0.21,
+        'ORtg':0.26,
+        'Opponent':0.31,
+        '1':  0.56,
+        'W':0.59,
+        'D':0.64,
+        'L':  0.69,
+        '2':0.74,
+        'Exp':0.77,
+        'Per':0.82,
+        '3':0.87,
+        'xGF':0.90,
+        'xGA':0.95}
+
+    # Headers
+    header_y = (len(results)+0.5)/(len(results)+1)
+    for col, x in col_x.items():
+        if (col == 'H/A') | (col == 'Score') | (col == '1') | (col == '2') | (col == '3'):
+            pass
+        else:
+            ha = 'left'
+            ax.annotate(col, (x, header_y), va='center', ha=ha, size=7, weight='bold')
+
+    # Row layout
+    top = len(results)/(len(results)+1)
+    ax.axhline(top, color='black', linewidth=0.8)
+    bottom_margin = 1/(len(results)+1)/10
+    total_height = top - bottom_margin
+    space = total_height / max(4, len(results))
+    i_loc = top - space / 2
+
+    # Vertical dividers (between groups)
+    for x in col_x.values():
+        ax.vlines(x-0.005, bottom_margin, top, color='black', linewidth=0.5)
+
+    for _, row in results.iterrows():
+        team_primary = team_colors[selected_team]['home_primary']
+        team_text = team_colors[selected_team]['home_secondary']
+        opp_primary = team_colors[row['Opponent']]['home_primary']
+        opp_text = team_colors[row['Opponent']]['home_secondary']
+
+        if row['Loc'] == 'H':
+            loc_background = team_primary
+            loc_text = team_text
+        else:
+            loc_background = opp_primary
+            loc_text = opp_text
+            
+        ax.add_patch(Rectangle((col_x['Date']-0.005,i_loc - space/2),0.12,space,facecolor=team_primary))
+        ax.add_patch(Rectangle((col_x['H/A']-0.005,i_loc - space/2),0.03,space,facecolor=loc_background))
+        ax.add_patch(Rectangle((col_x['Rtg']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap(row['Rtg']) if pd.notna(row['Rtg']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['ORtg']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap(row['ORtg']) if pd.notna(row['Rtg']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['Opponent']-0.005, i_loc - space/2), 0.25, space, facecolor=opp_primary))
+        ax.add_patch(Rectangle((col_x['W']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap(norm_w(row['win'])) if pd.notna(row['win']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['D']-0.005, i_loc - space/2), 0.06, space,facecolor=cmap(norm_w(row['draw'])) if pd.notna(row['draw']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['L']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap(norm_w(row['loss'])) if pd.notna(row['loss']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['Exp']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap(norm_p(row['Exp'])) if pd.notna(row['Exp']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['Per']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap(norm_p(row['Perf'])) if pd.notna(row['Perf']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['xGF']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap(norm_o(row['xGF'])) if pd.notna(row['xGF']) else 'lightgray'))
+        ax.add_patch(Rectangle((col_x['xGA']-0.005, i_loc - space/2), 0.05, space,facecolor=cmap_r(norm_o(row['xGA'])) if pd.notna(row['xGA']) else 'lightgray'))
+
+        
+        if row['for_score'] > row['against_score']:
+            primary = team_primary
+            text = team_text
+        elif row['for_score'] < row['against_score']:
+            primary = opp_primary
+            text = opp_text
+        else:
+            primary = 'white'
+            text = 'black'
+        ax.add_patch(Rectangle((col_x['Score']-0.005,i_loc - space/2),0.05,space,facecolor=primary))
+
+        # Text annotations
+        ax.annotate(str(row['Date'])[:10], (col_x['Date'], i_loc), va='center', ha='left', size=7,color=team_text,weight='bold')
+        ax.annotate(str(row['Loc']), (col_x['H/A']+0.01, i_loc), va='center', ha='center', size=7,color=loc_text,weight='bold')
+        ax.annotate(f"{row['Rtg']:.0%}" if pd.notna(row['Rtg']) else '', (col_x['Rtg'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(row['score'], (col_x['Score'], i_loc), va='center', ha='left', size=7, fontweight='bold',color=text)
+        ax.annotate(f"{row['ORtg']:.0%}" if pd.notna(row['ORtg']) else '', (col_x['ORtg'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(row['Opponent'], (col_x['Opponent'], i_loc), va='center', ha='left', size=7,color=opp_text, fontweight='bold')
+        ax.annotate(f"{row['win']:.0%}", (col_x['W'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(f"{row['draw']:.0%}", (col_x['D'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(f"{row['loss']:.0%}", (col_x['L'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(f"{row['Exp']:.2f}", (col_x['Exp'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(f"{row['Perf']:.2f}", (col_x['Per'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(f"{row['xGF']:.2f}" if pd.notna(row['xGF']) else '',(col_x['xGF'], i_loc), va='center', ha='left', size=7)
+        ax.annotate(f"{row['xGA']:.2f}" if pd.notna(row['xGA']) else '',(col_x['xGA'], i_loc), va='center', ha='left', size=7)
+
+        # Row divider
+        ax.axhline(i_loc - space/2, color='black', linewidth=0.3)
+        i_loc -= space
+    return fig
+
 standings = pd.read_feather('data/standings.ftr')
 color_map = pd.read_feather('data/color_map.ftr')
 color_map['home_secondary'] = color_map.apply(lambda row: '#FFFFFF' if row['home_primary'] == row['home_secondary'] else row['home_secondary'],axis=1)
@@ -856,3 +993,6 @@ with tab_team:
         with subcol4:
             season = sorted(standings['season'].unique(), reverse=True)
             selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
+            schedule_results = create_schedule_results(match_sims,matches,team_ratings,selected_season,selected_team)
+        fig = create_schedule_results_figure(schedule_results)
+        scrollable_plot(fig, height=400)
