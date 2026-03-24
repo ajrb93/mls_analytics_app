@@ -974,11 +974,15 @@ with tab_standings:
 with tab_team:
     col1, col2 = st.columns([2,3])
     with col1:
-        subcol1, subcol2 = st.columns([3,1.5])
+        subcol1, subcol2, subcol3 = st.columns([1.5,1.5,1.5])
         with subcol1:
             teams = sorted(standings.F.unique())
             selected_team = st.selectbox('Select Team',options=teams,key='team_picker',label_visibility='collapsed')
         with subcol2:
+            season = sorted(standings['season'].unique(), reverse=True)
+            selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
+            schedule_results = create_schedule_results(match_sims,matches,team_ratings,selected_season,selected_team)
+        with subcol3:
             selected_visual_type = st.selectbox('Select Type',options=['Net Rtg','Off/Def','xG/xGA'],label_visibility='collapsed')
             multi_standings = create_multi_year_standings(team_ratings,standings)
             multi_standings = multi_standings[multi_standings.Team == selected_team]
@@ -989,12 +993,5 @@ with tab_team:
         img_base64 = base64.b64encode(buf.read()).decode()
         st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
         plt.close(fig)
-        subcol3, subcol4 = st.columns([3,1.5])
-        with subcol3:
-            st.markdown("<p style='font-size:22px; font-weight:bold; margin-bottom:0px;'>Schedule/Results</p>", unsafe_allow_html=True)
-        with subcol4:
-            season = sorted(standings['season'].unique(), reverse=True)
-            selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
-            schedule_results = create_schedule_results(match_sims,matches,team_ratings,selected_season,selected_team)
         fig = create_schedule_results_figure(schedule_results,selected_team)
         scrollable_plot(fig, height=400)
