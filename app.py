@@ -793,7 +793,7 @@ def create_schedule_results_figure(results,selected_team):
     results.loc[~results.for_score.isna(),'score'] = (results[~results.for_score.isna()].for_score.astype('int').astype('str') + ' - ' + 
                                                       results[~results.against_score.isna()].against_score.astype('int').astype('str'))
 
-    fig_height = max(10, len(results) * 0.2)
+    fig_height = max(7, len(results) * 0.2)
     fig, ax = plt.subplots(figsize=(7,fig_height))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
@@ -994,4 +994,4 @@ with tab_team:
         st.markdown(f'<img src="data:image/png;base64,{img_base64}" style="width:100%;">', unsafe_allow_html=True)
         plt.close(fig)
         fig = create_schedule_results_figure(schedule_results,selected_team)
-        scrollable_plot(fig, height=400)
+        scrollable_plot(fig, height=390)
