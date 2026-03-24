@@ -789,7 +789,10 @@ def create_schedule_results(match_sims,matches,team_ratings,selected_season,sele
     return plot_df
 
 def create_schedule_results_figure(results,selected_team):
-    results['score'] = results.for_score.astype('int').astype('str') + ' - ' + results.against_score.astype('int').astype('str')
+    if for_score.isna():
+        results['score'] = ''   
+    else:
+        results['score'] = results.for_score.astype('int').astype('str') + ' - ' + results.against_score.astype('int').astype('str')
 
     fig_height = max(10, len(results) * 0.2)
     fig, ax = plt.subplots(figsize=(7,fig_height))
