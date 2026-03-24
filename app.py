@@ -994,5 +994,5 @@ with tab_team:
             season = sorted(standings['season'].unique(), reverse=True)
             selected_season = st.selectbox("Select Year", options=season, index=0, key="season_picker2",label_visibility="collapsed")
             schedule_results = create_schedule_results(match_sims,matches,team_ratings,selected_season,selected_team)
-        fig = create_schedule_results_figure(schedule_results)
+        fig = create_schedule_results_figure(schedule_results,selected_team)
         scrollable_plot(fig, height=400)
