@@ -906,9 +906,25 @@ def plot_spi_chart(data):
     fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
     fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',line=dict(color='white', width=1.5), showlegend=False))
     fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=1)
-    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.2, 0.9], tickvals=[i/10 for i in range(2, 9)], tickformat='.0%'),
+    for year in data.Date.dt.year.unique():
+        fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
+    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.25, 0.85], tickvals=[i/10 for i in range(3, 9)], tickformat='.0%'),
         plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
     return fig
+
+def plot_offdef_chart(data):
+    fig = go.Figure()
+    x_coords = list(data.Date) + list(data.Date[::-1])
+    y_green = list(np.where(data.A > data.B, data.A, data.B)) + list(np.where(data.A > data.B, data.B, data.A)[::-1])
+    fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
+    y_red = list(np.where(data.B > data.A, data.B, data.A)) + list(np.where(data.B > data.A, data.A, data.B)[::-1])
+    fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,0.4)', showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='white', width=1.5), name='A'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='gray', width=1.5), name='B'))
+    for year in data.Date.dt.year.unique():
+        fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
+    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.25, 0.85], tickvals=[i/10 for i in range(3, 9)], tickformat='.0%'),
+                      plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
 
 standings = pd.read_feather('data/standings.ftr')
 color_map = pd.read_feather('data/color_map.ftr')
@@ -1009,7 +1025,10 @@ with tab_team:
         fig = create_schedule_results_figure(schedule_results,selected_team)
         scrollable_plot(fig, height=390)
     with col2:
-        fig = plot_spi_chart(team_ratings[team_ratings.Team == selected_team])
-        st.plotly_chart(fig, use_container_width=True)
-        st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='A')
-        st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='B')
+        if selected_visual_type == 'Net Rtg':
+            fig = plot_spi_chart(team_ratings[team_ratings.Team == selected_team])
+            st.plotly_chart(fig, use_container_width=True)
+        elif selected_visual_type == 'Off/Def':
+            st.area_chart(team_ratings[team_ratings.Team == selected_team],x='Date',y='A')
+        else:
+            st.area_chart(team_ratings[team_ratings.Team == selected_team],x='Date',y='A')
