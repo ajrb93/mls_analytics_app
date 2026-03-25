@@ -897,6 +897,16 @@ def create_schedule_results_figure(results,selected_team):
         i_loc -= space
     return fig
 
+def plot_spi_chart(data):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, 0.5),fill='tonexty',mode='none',fillcolor='rgba(0, 180, 0, 0.4)',showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C <  0.5, data.C, 0.5),fill='tonexty',mode='none',fillcolor='rgba(220, 0, 0, 0.4)',showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=[0.5] * len(data.Date),fill=None,mode='none',showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.C,mode='lines',line=dict(color='white', width=1.5),showlegend=False))
+    fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=1)
+    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0, 1]),plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
+    return fig
+
 standings = pd.read_feather('data/standings.ftr')
 color_map = pd.read_feather('data/color_map.ftr')
 color_map['home_secondary'] = color_map.apply(lambda row: '#FFFFFF' if row['home_primary'] == row['home_secondary'] else row['home_secondary'],axis=1)
@@ -996,6 +1006,7 @@ with tab_team:
         fig = create_schedule_results_figure(schedule_results,selected_team)
         scrollable_plot(fig, height=390)
     with col2:
-        st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='C')
+        fig = plot_spi_chart(team_ratings[team_ratings.Team == selected_team])
+        st.plotly_chart(fig, use_container_width=True)
         st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='A')
         st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='B')
