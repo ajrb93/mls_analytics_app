@@ -902,23 +902,12 @@ def plot_spi_chart(data):
     x_coords = list(data.Date) + list(data.Date[::-1])
     y_red = list(np.where(data.C < 0.5, data.C, 0.5)) + [0.5] * len(data.Date)
     y_green = list(np.where(data.C > 0.5, data.C, 0.5)) + [0.5] * len(data.Date)
-
-    fig.add_trace(go.Scatter(x=x_coords, y=y_red,
-        fill='toself', mode='none', fillcolor='rgba(220,0,0,0.4)', showlegend=False))
-
-    fig.add_trace(go.Scatter(x=x_coords, y=y_green,
-        fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
-
-    fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',
-        line=dict(color='white', width=1.5), showlegend=False))
-
+    fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,0.4)', showlegend=False))
+    fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',line=dict(color='white', width=1.5), showlegend=False))
     fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=1)
-
-    fig.update_layout(
-        height=200, margin=dict(l=0, r=0, t=0, b=0),
-        yaxis=dict(range=[0.3, 0.7], tickvals=[i/10 for i in range(3, 8)], tickformat='.0%'),
-        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)'
-    )
+    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.2, 0.9], tickvals=[i/10 for i in range(2, 9)], tickformat='.0%'),
+        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
     return fig
 
 standings = pd.read_feather('data/standings.ftr')
