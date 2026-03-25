@@ -995,3 +995,7 @@ with tab_team:
         plt.close(fig)
         fig = create_schedule_results_figure(schedule_results,selected_team)
         scrollable_plot(fig, height=390)
+    with col2:
+        st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='C')
+        st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='A')
+        st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='B')
