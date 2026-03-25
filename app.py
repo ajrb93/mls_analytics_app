@@ -916,7 +916,7 @@ def plot_spi_chart(data):
 
     fig.update_layout(
         height=200, margin=dict(l=0, r=0, t=0, b=0),
-        yaxis=dict(range=[0, 1], tickvals=[i/10 for i in range(0, 11)], tickformat='.0%'),
+        yaxis=dict(range=[0.3, 0.7], tickvals=[i/10 for i in range(3, 8)], tickformat='.0%'),
         plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)'
     )
     return fig
@@ -1020,7 +1020,7 @@ with tab_team:
         fig = create_schedule_results_figure(schedule_results,selected_team)
         scrollable_plot(fig, height=390)
     with col2:
-        fig = plot_spi_chart(team_ratings[team_ratings.Team == 'Atlanta United'])
+        fig = plot_spi_chart(team_ratings[team_ratings.Team == selected_team])
         st.plotly_chart(fig, use_container_width=True)
         st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='A')
         st.area_chart(team_ratings[team_ratings.Team == 'Atlanta United'],x='Date',y='B')
