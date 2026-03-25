@@ -12,18 +12,6 @@ from io import BytesIO
 import numpy as np
 
 # --- 1. CONFIG & COMPACT STYLING ---
-hide_streamlit_style = """
-<style>
-#MainMenu {visibility: hidden;}
-header {visibility: hidden;}
-footer {visibility: hidden;}
-.block-container {
-    padding-top: 0rem;
-}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 st.set_page_config(layout="wide", page_title="Major League Soccer")
 
 # CUSTOM CSS: Shrinks headers, table padding, and overall container gaps
