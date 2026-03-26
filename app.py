@@ -899,17 +899,20 @@ def create_schedule_results_figure(results,selected_team):
 
 def plot_spi_chart(data):
     fig = go.Figure()
-    x_coords = list(data.Date) + list(data.Date[::-1])
-    y_red = list(np.where(data.C < 0.5, data.C, 0.5)) + [0.5] * len(data.Date)
-    y_green = list(np.where(data.C > 0.5, data.C, 0.5)) + [0.5] * len(data.Date)
-    fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,1)', showlegend=False))
-    fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,1)', showlegend=False))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',line=dict(color='black', width=10), showlegend=False))
+    baseline = [0.5] * len(data.Date)
+    fig.add_trace(go.Scatter(x=data.Date,y=baseline,mode='none',showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C > 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)', showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C < 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(200,0,0,0.2)', showlegend=False))
+    green_y = np.where(data.C >= 0.5, data.C, np.nan)
+    fig.add_trace(go.Scatter(x=data.Date, y=green_y,mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
+    red_y = np.where(data.C <= 0.5, data.C, np.nan)
+    fig.add_trace(go.Scatter(x=data.Date, y=red_y,mode='lines', line=dict(color='darkred', width=2.5),showlegend=False, connectgaps=False))
     fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=2)
-    #for year in data.Date.dt.year.unique():
-    #    fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
-    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.25, 0.85], tickvals=[i/10 for i in range(3, 9)], tickformat='.0%'),
-        plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
+#    for year in data.Date.dt.year.unique():
+#        fig.add_vline(x=f'{year}-01-01', line_dash='dot',
+#                      line_color='rgba(255,255,255,0.2)', line_width=1)
+    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.25, 0.85], tickvals=[i/10 for i in range(3, 9)],tickformat='.0%'),
+                      plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
     return fig
 
 def plot_offdef_chart(data):
