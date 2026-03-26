@@ -902,12 +902,12 @@ def plot_spi_chart(data):
     x_coords = list(data.Date) + list(data.Date[::-1])
     y_red = list(np.where(data.C < 0.5, data.C, 0.5)) + [0.5] * len(data.Date)
     y_green = list(np.where(data.C > 0.5, data.C, 0.5)) + [0.5] * len(data.Date)
-    fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,0.4)', showlegend=False))
-    fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',line=dict(color='black', width=2.5), showlegend=False))
-    fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=1)
-    #for year in data.Date.dt.year.unique():
-    #    fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
+    fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,1)', showlegend=False))
+    fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,1)', showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',line=dict(color='black', width=10), showlegend=False))
+    fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=2)
+    for year in data.Date.dt.year.unique():
+        fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
     fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.25, 0.85], tickvals=[i/10 for i in range(3, 9)], tickformat='.0%'),
         plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
     return fig
