@@ -1029,7 +1029,7 @@ with tab_team:
             fig = plot_spi_chart(team_ratings[team_ratings.Team == selected_team])
             st.plotly_chart(fig, use_container_width=True)
         elif selected_visual_type == 'Off/Def':
-            fig = plot_offdef_chart(team_ratings[team_ratings.Team == 'selected_team'])
+            fig = plot_offdef_chart(team_ratings[team_ratings.Team == selected_team])
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.area_chart(team_ratings[team_ratings.Team == selected_team],x='Date',y='A')
