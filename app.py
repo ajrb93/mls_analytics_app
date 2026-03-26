@@ -904,7 +904,7 @@ def plot_spi_chart(data):
     y_green = list(np.where(data.C > 0.5, data.C, 0.5)) + [0.5] * len(data.Date)
     fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,0.4)', showlegend=False))
     fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',line=dict(color='white', width=1.5), showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.C, mode='lines',line=dict(color='black', width=2.5), showlegend=False))
     fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=1)
     #for year in data.Date.dt.year.unique():
     #    fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
@@ -919,8 +919,8 @@ def plot_offdef_chart(data):
     fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
     y_red = list(np.where(data.B > data.A, data.B, data.A)) + list(np.where(data.B > data.A, data.A, data.B)[::-1])
     fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,0.4)', showlegend=False))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='white', width=1.5), name='A'))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='gray', width=1.5), name='B'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='black', width=2.5), name='A'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='black', width=2.5), name='B'))
     #for year in data.Date.dt.year.unique():
     #    fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
     fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0,3], tickvals=[i/10 for i in range(2.5, 30)], tickformat='.2f'),
