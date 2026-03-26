@@ -901,12 +901,11 @@ def plot_spi_chart(data):
     fig = go.Figure()
     baseline = [0.5] * len(data.Date)
     fig.add_trace(go.Scatter(x=data.Date,y=baseline,mode='none',showlegend=False))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C > 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)', showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)', showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=baseline, mode='none', showlegend=False))
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C < 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(200,0,0,0.2)', showlegend=False))
-    green_y = np.where(data.C >= 0.5, data.C, np.nan)
-    fig.add_trace(go.Scatter(x=data.Date, y=green_y,mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
-    red_y = np.where(data.C <= 0.5, data.C, np.nan)
-    fig.add_trace(go.Scatter(x=data.Date, y=red_y,mode='lines', line=dict(color='darkred', width=2.5),showlegend=False, connectgaps=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, np.nan),mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C <  0.5, data.C, np.nan),mode='lines', line=dict(color='darkred', width=2.5),showlegend=False, connectgaps=False))
     fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=2)
 #    for year in data.Date.dt.year.unique():
 #        fig.add_vline(x=f'{year}-01-01', line_dash='dot',
