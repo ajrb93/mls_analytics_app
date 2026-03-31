@@ -910,7 +910,7 @@ def plot_spi_chart(data):
 #    for year in data.Date.dt.year.unique():
 #        fig.add_vline(x=f'{year}-01-01', line_dash='dot',
 #                      line_color='rgba(255,255,255,0.2)', line_width=1)
-    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.25, 0.85], tickvals=[i/10 for i in range(3, 9)],tickformat='.0%'),
+    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.3, 0.8], tickvals=[i/10 for i in range(3, 9)],tickformat='.0%'),
                       plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
     return fig
 
