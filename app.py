@@ -907,26 +907,100 @@ def plot_spi_chart(data):
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, np.nan),mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C <  0.5, data.C, np.nan),mode='lines', line=dict(color='darkred', width=2.5),showlegend=False, connectgaps=False))
     fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=2)
-#    for year in data.Date.dt.year.unique():
-#        fig.add_vline(x=f'{year}-01-01', line_dash='dot',
-#                      line_color='rgba(255,255,255,0.2)', line_width=1)
+    for year in pd.to_datetime(data.Date).dt.year.unique():
+        fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
     fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.3, 0.8], tickvals=[i/10 for i in range(3, 9)],tickformat='.0%'),
                       plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
+    season_start = '02-20'
+    season_end = '11-09'
+
+    rangebreaks = []
+    for year in pd.to_datetime(data.Date).dt.year.unique():
+    # Gap before season (Jan 3 → season start)
+        rangebreaks.append(dict(bounds=[f'{year}-01-03', f'{year}-{season_start}']))
+    # Gap after season (season end → Dec 31)
+        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-12-31']))
+    fig.update_xaxes(rangebreaks=rangebreaks)
     return fig
+
+def get_crossover_segments(x, a, b):
+    segments = []
+    diff = a - b
+    sign = np.sign(diff)
+    
+    crossovers = np.where(np.diff(sign) != 0)[0]    
+    split_points = [0] + list(crossovers + 1) + [len(x)]
+    
+    for i in range(len(split_points) - 1):
+        start = split_points[i]
+        end = split_points[i + 1]
+        
+        seg_x = list(x[start:end])
+        seg_a = list(a[start:end])
+        seg_b = list(b[start:end])
+        
+        if i > 0:
+            prev = split_points[i] - 1
+            curr = split_points[i]
+            t = diff[prev] / (diff[prev] - diff[curr])  # linear interpolation
+            x_cross = x[prev] + t * (x[curr] - x[prev])
+            y_cross = a[prev] + t * (a[curr] - a[prev])
+            seg_x = [x_cross] + seg_x
+            seg_a = [y_cross] + seg_a
+            seg_b = [y_cross] + seg_b
+        
+        if i < len(split_points) - 2:
+            curr = split_points[i + 1] - 1
+            nxt = split_points[i + 1]
+            t = diff[curr] / (diff[curr] - diff[nxt])
+            x_cross = x[curr] + t * (x[nxt] - x[curr])
+            y_cross = a[curr] + t * (a[nxt] - a[curr])
+            seg_x = seg_x + [x_cross]
+            seg_a = seg_a + [y_cross]
+            seg_b = seg_b + [y_cross]
+        
+        a_above = np.mean(seg_a) > np.mean(seg_b)
+        segments.append((seg_x, seg_a, seg_b, a_above))
+    
+    return segments
 
 def plot_offdef_chart(data):
     fig = go.Figure()
-    x_coords = list(data.Date) + list(data.Date[::-1])
-    y_green = list(np.where(data.A > data.B, data.A, data.B)) + list(np.where(data.A > data.B, data.B, data.A)[::-1])
-    fig.add_trace(go.Scatter(x=x_coords, y=y_green,fill='toself', mode='none', fillcolor='rgba(0,180,0,0.4)', showlegend=False))
-    y_red = list(np.where(data.B > data.A, data.B, data.A)) + list(np.where(data.B > data.A, data.A, data.B)[::-1])
-    fig.add_trace(go.Scatter(x=x_coords, y=y_red,fill='toself', mode='none', fillcolor='rgba(220,0,0,0.4)', showlegend=False))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='black', width=2.5), name='A'))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='black', width=2.5), name='B'))
-    #for year in data.Date.dt.year.unique():
-    #    fig.add_vline(x=f'{year}-01-01',line_dash='dot', line_color='rgba(255,255,255,0.2)', line_width=1)
-    fig.update_layout(height=200, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0,3], tickvals=[i/10 for i in range(2.5, 30)], tickformat='.2f'),
-                      plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
+
+    x = np.array(data.Date)
+    a = np.array(data.A, dtype=float)
+    b = np.array(data.B, dtype=float)
+
+    segments = get_crossover_segments(x, a, b)
+
+    for seg_x, seg_a, seg_b, a_above in segments:
+        fill_color = 'rgba(0,180,0,0.4)' if a_above else 'rgba(220,0,0,0.4)'
+        # Bottom line first, then top line reversed — creates a closed polygon
+        x_fill = seg_x + seg_x[::-1]
+        y_fill = seg_b + seg_a[::-1]   # swap if a_above=False? No — always b on bottom, a on top of polygon
+        if not a_above:
+            y_fill = seg_a + seg_b[::-1]  # a is lower, b is upper
+        fig.add_trace(go.Scatter(x=x_fill, y=y_fill,fill='toself', mode='none',fillcolor=fill_color,showlegend=False,hoverinfo='skip'))
+
+    # Draw the two lines on top
+    fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='darkgreen', width=2.5), name='A'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='darkred', width=2.5), name='B'))
+
+    for year in pd.to_datetime(data.Date).dt.year.unique():
+        fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
+    
+    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0, 3], tickvals=[i/10 for i in range(2, 30)], tickformat='.2f'),
+                      plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
+    season_start = '02-20'
+    season_end = '11-09'
+
+    rangebreaks = []
+    for year in pd.to_datetime(data.Date).dt.year.unique():
+    # Gap before season (Jan 3 → season start)
+        rangebreaks.append(dict(bounds=[f'{year}-01-03', f'{year}-{season_start}']))
+    # Gap after season (season end → Dec 31)
+        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-12-31']))
+    fig.update_xaxes(rangebreaks=rangebreaks)
     return fig
 
 standings = pd.read_feather('data/standings.ftr')
