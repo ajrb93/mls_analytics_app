@@ -902,10 +902,10 @@ def plot_spi_chart(data):
     c = np.array(data.C, dtype=float)
     baseline = 0.5
     fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c >= baseline, c, baseline),fill='tonexty', mode='none',fillcolor='darkgreen',
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c >= baseline, c, baseline),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)',
                              showlegend=False, hoverinfo='skip'))
     fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c < baseline, c, baseline),fill='tonexty', mode='none',fillcolor='darkred',
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c < baseline, c, baseline),fill='tonexty', mode='none',fillcolor='rgba(200,0,0,0.2)',
         showlegend=False, hoverinfo='skip'))
     
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, np.nan),mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
@@ -987,7 +987,7 @@ def plot_offdef_chart(data):
         fig.add_trace(go.Scatter(x=x_fill, y=y_fill,fill='toself', mode='none',fillcolor=fill_color,showlegend=False,hoverinfo='skip'))
 
     # Draw the two lines on top
-    fig.add_hline(y=1.45,line_dash='dash',line_color='grey',width=2)
+    fig.add_hline(y=1.45,line_dash='dash',line_color='grey')
     fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='darkgreen', width=2.5), name='Off Rating'))
     fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='darkred', width=2.5), name='Def Rating'))
 
