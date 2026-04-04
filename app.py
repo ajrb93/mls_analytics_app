@@ -900,7 +900,7 @@ def create_schedule_results_figure(results,selected_team):
 def plot_spi_chart(data):
     fig = go.Figure()
     baseline = [0.5] * len(data.Date)
-    fig.add_hline(y=0.5,line_dash='dash',line_color='grey')
+#    fig.add_hline(y=0.5,line_dash='dash',line_color='grey')
     fig.add_trace(go.Scatter(x=data.Date,y=baseline,mode='none',showlegend=False))
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)', showlegend=False))
     fig.add_trace(go.Scatter(x=data.Date, y=baseline, mode='none', showlegend=False))
@@ -985,13 +985,13 @@ def plot_offdef_chart(data):
 
     # Draw the two lines on top
     fig.add_hline(y=1.45,line_dash='dash',line_color='grey')
-    fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='darkgreen', width=2.5), name='A'))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='darkred', width=2.5), name='B'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.A, mode='lines',line=dict(color='darkgreen', width=2.5), name='Off Rating'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.B, mode='lines',line=dict(color='darkred', width=2.5), name='Def Rating'))
 
     for year in pd.to_datetime(data.Date).dt.year.unique():
         fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
     
-    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.45, 2.45], tickvals=[i/10 for i in np.arange(5,26,5)], tickformat='.2f'),
+    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.45, 2.55], tickvals=[i/10 for i in np.arange(5,26,5)], tickformat='.2f'),
                       plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
     season_start = '02-20'
     season_end = '11-09'
