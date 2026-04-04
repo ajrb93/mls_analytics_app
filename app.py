@@ -901,15 +901,34 @@ def plot_spi_chart(data):
     fig = go.Figure()
     c = np.array(data.C, dtype=float)
     baseline = 0.5
-    fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c >= baseline, c, baseline),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)',
-                             showlegend=False, hoverinfo='skip'))
-    fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c < baseline, c, baseline),fill='tonexty', mode='none',fillcolor='rgba(200,0,0,0.2)',
-        showlegend=False, hoverinfo='skip'))
+    dates = list(pd.to_datetime(data.Date))
+    x_fill = dates + dates[::-1]
+    y_green = list(np.where(c >= baseline, c, baseline)) + [baseline] * len(dates)
+    fig.add_trace(go.Scatter(
+        x=x_fill, y=y_green, fill='toself', mode='none',
+        fillcolor='rgba(0,150,0,0.2)', showlegend=False, hoverinfo='skip'
+    ))
+
+    y_red = list(np.where(c < baseline, c, baseline)) + [baseline] * len(dates)
+    fig.add_trace(go.Scatter(
+        x=x_fill, y=y_red, fill='toself', mode='none',
+        fillcolor='rgba(200,0,0,0.2)', showlegend=False, hoverinfo='skip'
+    ))
+
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c >= baseline, c, np.nan), mode='lines',
+        line=dict(color='darkgreen', width=2.5), showlegend=False, connectgaps=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c < baseline, c, np.nan), mode='lines',
+        line=dict(color='darkred', width=2.5), showlegend=False, connectgaps=False))
+
+    #fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
+    #fig.add_trace(go.Scatter(x=data.Date, y=np.where(c >= baseline, c, baseline),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)',
+    #                         showlegend=False, hoverinfo='skip'))
+    #fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
+    #fig.add_trace(go.Scatter(x=data.Date, y=np.where(c < baseline, c, baseline),fill='tonexty', mode='none',fillcolor='rgba(200,0,0,0.2)',
+    #    showlegend=False, hoverinfo='skip'))
     
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, np.nan),mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C <  0.5, data.C, np.nan),mode='lines', line=dict(color='darkred', width=2.5),showlegend=False, connectgaps=False))
+    #fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, np.nan),mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
+    #fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C <  0.5, data.C, np.nan),mode='lines', line=dict(color='darkred', width=2.5),showlegend=False, connectgaps=False))
     fig.add_hline(y=0.5, line_dash='dash', line_color='gray', line_width=2)
     for year in pd.to_datetime(data.Date).dt.year.unique():
         fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
