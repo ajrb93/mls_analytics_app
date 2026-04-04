@@ -901,6 +901,7 @@ def plot_spi_chart(data):
     fig = go.Figure()
     baseline = [0.5] * len(data.Date)
     fig.add_hline(y=0.5,line_dash='dash',line_color='grey')
+    fig.add_trace(go.Scatter(x=data.Date,y=baseline,mode='none',showlegend=False))
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(0,150,0,0.2)', showlegend=False))
     fig.add_trace(go.Scatter(x=data.Date, y=baseline, mode='none', showlegend=False))
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C < 0.5, data.C, 0.5),fill='tonexty', mode='none',fillcolor='rgba(200,0,0,0.2)', showlegend=False))
