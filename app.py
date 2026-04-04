@@ -902,10 +902,10 @@ def plot_spi_chart(data):
     c = np.array(data.C, dtype=float)
     baseline = 0.5
     fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c >= baseline, c, baseline),fill='tonexty', mode='none',fillcolor='darkgreen',alpha=0.5,
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c >= baseline, c, baseline),fill='tonexty', mode='none',fillcolor='darkgreen',
                              showlegend=False, hoverinfo='skip'))
     fig.add_trace(go.Scatter(x=data.Date, y=[baseline] * len(data.Date),mode='none', showlegend=False, hoverinfo='skip'))
-    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c < baseline, c, baseline),fill='tonexty', mode='none',fillcolor='darkred',alpha=0.5,
+    fig.add_trace(go.Scatter(x=data.Date, y=np.where(c < baseline, c, baseline),fill='tonexty', mode='none',fillcolor='darkred',
         showlegend=False, hoverinfo='skip'))
     
     fig.add_trace(go.Scatter(x=data.Date, y=np.where(data.C >= 0.5, data.C, np.nan),mode='lines', line=dict(color='darkgreen', width=2.5),showlegend=False, connectgaps=False))
