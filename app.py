@@ -1027,6 +1027,57 @@ def plot_offdef_chart(data):
     fig.update_xaxes(rangebreaks=rangebreaks)
     return fig
 
+def plot_xg_chart(data):
+    fig = go.Figure()
+    
+    n = 5  # rolling window
+    xg = np.array(data.xGF, dtype=float)
+    xga = np.array(data.xGA, dtype=float)
+    xgd = xg - xga
+
+    # Rolling averages
+    def rolling(arr, n):
+        result = np.full(len(arr), np.nan)
+        for i in range(n - 1, len(arr)):
+            result[i] = arr[i - n + 1:i + 1].mean()
+        return result
+
+    xg_roll = rolling(xg, n)
+    xga_roll = rolling(xga, n)
+    xgd_roll = rolling(xgd, n)
+
+    fig.add_trace(go.Bar(x=data.Date, y=xg,marker_color='rgba(0,150,0,0.5)',showlegend=False))
+    fig.add_trace(go.Bar(x=data.Date, y=-xga,marker_color='rgba(200,0,0,0.5)',showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=xgd,mode='markers',marker=dict(symbol='diamond', size=6, color='black', opacity=0.6),showlegend=False))
+    fig.add_trace(go.Scatter(x=data.Date, y=xg_roll,mode='lines', line=dict(color='darkgreen', width=2),showlegend=False, hoverinfo='skip'))
+    fig.add_trace(go.Scatter(x=data.Date, y=-xga_roll,mode='lines', line=dict(color='darkred', width=2),showlegend=False, hoverinfo='skip'))
+    fig.add_trace(go.Scatter(x=data.Date, y=xgd_roll,mode='lines', line=dict(color='black', width=3),showlegend=False, hoverinfo='skip'))
+
+    fig.add_hline(y=0, line_dash='dash',line_color='grey')
+    fig.add_hline(y=1.5, line_color='darkgreen', line_dash='dash')
+    fig.add_hline(y=-1.5, line_color='darkred', line_dash='dash')
+
+    for year in pd.to_datetime(data.Date).dt.year.unique():
+        fig.add_trace(go.Scatter(
+            x=[pd.Timestamp(f'{year}-01-01')] * 2, y=[-3, 3],
+            mode='lines', line=dict(dash='dot', color='black', width=2),
+            showlegend=False, hoverinfo='skip'
+        ))
+
+    for year in pd.to_datetime(data.Date).dt.year.unique():
+        fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
+    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[-3,3.01], tickvals=[i/10 for i in np.arange(-3,4)], tickformat='.0f'),
+                      plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
+    season_start = '02-20'
+    season_end = '11-09'
+
+    rangebreaks = []
+    for year in pd.to_datetime(data.Date).dt.year.unique():
+        rangebreaks.append(dict(bounds=[f'{year}-01-03', f'{year}-{season_start}']))
+        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-12-31']))
+    fig.update_xaxes(rangebreaks=rangebreaks)
+    return fig
+
 standings = pd.read_feather('data/standings.ftr')
 color_map = pd.read_feather('data/color_map.ftr')
 color_map['home_secondary'] = color_map.apply(lambda row: '#FFFFFF' if row['home_primary'] == row['home_secondary'] else row['home_secondary'],axis=1)
@@ -1133,4 +1184,10 @@ with tab_team:
             fig = plot_offdef_chart(team_ratings[team_ratings.Team == selected_team])
             st.plotly_chart(fig, use_container_width=True)
         else:
-            st.area_chart(team_ratings[team_ratings.Team == selected_team],x='Date',y='A')
+            schedule_results = []
+            for i in season:
+                schedule_results.append(create_schedule_results(match_sims,matches,team_ratings,i,selected_team))
+            schedule_results = pd.concat(schedule_results)
+            fig = plot_xg_chart(schedule_results.sort_values('Date').reset_index(drop=True))
+            st.plotly_chart(fig, use_container_width=True)
+
