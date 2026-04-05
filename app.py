@@ -1066,7 +1066,7 @@ def plot_xg_chart(data):
 
     for year in pd.to_datetime(data.Date).dt.year.unique():
         fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
-    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[-3,3.01], tickvals=[i/10 for i in np.arange(-3,4)], tickformat='.0f'),
+    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[-4,4.01], tickvals=list(range(-4, 5)), tickformat='.0f'),
                       plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
     season_start = '02-20'
     season_end = '11-09'
