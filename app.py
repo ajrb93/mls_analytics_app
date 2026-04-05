@@ -1058,15 +1058,8 @@ def plot_xg_chart(data):
     fig.add_hline(y=-1.5, line_color='darkred', line_dash='dash')
 
     for year in pd.to_datetime(data.Date).dt.year.unique():
-        fig.add_trace(go.Scatter(
-            x=[pd.Timestamp(f'{year}-01-01')] * 2, y=[-3, 3],
-            mode='lines', line=dict(dash='dot', color='black', width=2),
-            showlegend=False, hoverinfo='skip'
-        ))
-
-    for year in pd.to_datetime(data.Date).dt.year.unique():
         fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
-    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[-4,4.2], tickvals=list(range(-4, 5)), tickformat='.0f'),
+    fig.update_layout(height=200,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[-4,4], tickvals=list(range(-4, 5)), tickformat='.0f'),
                       plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
     season_start = '02-20'
     season_end = '11-09'
