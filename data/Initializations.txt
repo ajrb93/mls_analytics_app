@@ -1,31 +1,31 @@
-team,conference,season,ORtg,DRtg
-FC Cincinnati,Eastern,23,1.49,1.58
-Orlando City SC,Eastern,23,1.31,1.39
-Columbus Crew,Eastern,23,1.49,1.33
-St.Louis City,Western,23,1.5,1.5
-Philadelphia Union,Eastern,23,1.56,1.45
-New England Revolution,Eastern,23,1.49,1.56
-Seattle Sounders FC,Western,23,1.41,1.46
-Los Angeles FC,Western,23,1.79,1.31
-Houston Dynamo,Western,23,1.28,1.63
-Atlanta United,Eastern,23,1.74,1.40
-Real Salt Lake,Western,23,1.42,1.46
-Nashville SC,Eastern,23,1.41,1.44
-Vancouver Whitecaps,Western,23,1.29,1.50
-FC Dallas,Western,23,1.32,1.43
-Sporting Kansas City,Western,23,1.40,1.32
-San Jose Earthquakes,Western,23,1.51,1.60
-New York Red Bulls,Eastern,23,1.53,1.10
-Portland Timbers,Western,23,1.36,1.63
-Charlotte FC,Eastern,23,1.31,1.44
-CF Montréal,Eastern,23,1.54,1.13
-Minnesota United,Western,23,1.44,1.60
-New York City FC,Eastern,23,1.63,1.28
-DC United,Eastern,23,1.19,1.69
-Chicago Fire,Eastern,23,1.41,1.39
-Austin FC,Western,23,1.51,1.45
-LA Galaxy,Western,23,1.60,1.36
-Inter Miami CF,Eastern,23,1.32,1.61
-Colorado Rapids,Western,23,1.44,1.43
-Toronto FC,Eastern,23,1.34,1.69
-San Diego FC,Western,25,1.5,1.5
+team,season,ORtg,DRtg,conference
+Atlanta United,2020,1.137,0.843,Eastern
+CF Montreal,2020,0.922,1.176,Eastern
+Colorado Rapids,2020,1.118,1.176,Western
+Chicago Fire FC,2020,1.078,0.922,Eastern
+Columbus Crew,2020,0.765,0.922,Eastern
+DC United,2020,0.824,0.745,Eastern
+FC Dallas,2020,0.941,0.902,Western
+FC Cincinnati,2020,0.608,1.471,Eastern
+LA Galaxy,2020,1.098,1.078,Western
+Los Angeles FC,2020,1.667,0.725,Western
+Houston Dynamo FC,2020,0.882,1.118,Western
+Inter Miami CF,2020,1,1,Eastern
+Minnesota United,2020,1.020,0.824,Western
+Nashville SC,2020,1,1,Eastern
+New York City FC,2020,1.235,0.824,Eastern
+New England Revolution,2020,0.980,1.118,Eastern
+Vancouver Whitecaps,2020,0.725,1.137,Western
+Seattle Sounders FC,2020,1.000,0.961,Western
+Orlando City,2020,0.863,1.020,Eastern
+Philadelphia Union,2020,1.137,0.980,Eastern
+Portland Timbers,2020,0.961,0.941,Western
+Real Salt Lake,2020,0.882,0.804,Western
+Red Bull New York,2020,1.039,1.000,Eastern
+San Jose Earthquakes,2020,1.000,1.020,Western
+Sporting Kansas City,2020,0.961,1.314,Western
+Toronto FC,2020,1.118,1.020,Eastern
+Austin FC,2021,1,1,Western
+Charlotte FC,2022,1,1,Eastern
+St. Louis City,2023,1,1,Western
+San Diego FC,2025,1,1,Western

@@ -1,119 +1,200 @@
 season,Date,team,Value
-23,2023-03-01,Atlanta United,53.35
-23,2023-03-01,Austin FC,48.83
-23,2023-03-01,Charlotte FC,37.98
-23,2023-03-01,Chicago Fire,33.30
-23,2023-03-01,FC Cincinnati,44.95
-23,2023-03-01,Colorado Rapids,34.63
-23,2023-03-01,Columbus Crew,34.80
-23,2023-03-01,FC Dallas,44.68
-23,2023-03-01,DC United,28.80
-23,2023-03-01,Houston Dynamo,27.68
-23,2023-03-01,Inter Miami CF,31.43
-23,2023-03-01,Sporting Kansas City,37.95
-23,2023-03-01,LA Galaxy,40.23
-23,2023-03-01,Los Angeles FC,56.60
-23,2023-03-01,Minnesota United,34.38
-23,2023-03-01,CF Montréal,27.93
-23,2023-03-01,Nashville SC,35.40
-23,2023-03-01,New England Revolution,38.93
-23,2023-03-01,New York City FC,48.08
-23,2023-03-01,New York Red Bulls,38.65
-23,2023-03-01,Orlando City SC,42.08
-23,2023-03-01,Philadelphia Union,49.40
-23,2023-03-01,Portland Timbers,37.65
-23,2023-03-01,Real Salt Lake,25.45
-23,2023-03-01,San Jose Earthquakes,44.85
-23,2023-03-01,Seattle Sounders FC,49.03
-23,2023-03-01,St.Louis City,19.95
-23,2023-03-01,Toronto FC,51.20
-23,2023-03-01,Vancouver Whitecaps,38.45
-24,2024-03-01,Atlanta United,61.30
-24,2024-03-01,Austin FC,37.73
-24,2024-03-01,Charlotte FC,26.00
-24,2024-03-01,Chicago Fire,44.35
-24,2024-03-01,FC Cincinnati,48.30
-24,2024-03-01,Colorado Rapids,30.63
-24,2024-03-01,Columbus Crew,44.53
-24,2024-03-01,FC Dallas,49.30
-24,2024-03-01,DC United,24.03
-24,2024-03-01,Houston Dynamo,31.53
-24,2024-03-01,Inter Miami CF,92.83
-24,2024-03-01,Sporting Kansas City,31.13
-24,2024-03-01,LA Galaxy,51.48
-24,2024-03-01,Los Angeles FC,41.80
-24,2024-03-01,Minnesota United,35.63
-24,2024-03-01,CF Montréal,36.35
-24,2024-03-01,Nashville SC,44.00
-24,2024-03-01,New England Revolution,41.68
-24,2024-03-01,New York City FC,48.75
-24,2024-03-01,New York Red Bulls,35.80
-24,2024-03-01,Orlando City SC,49.00
-24,2024-03-01,Philadelphia Union,52.30
-24,2024-03-01,Portland Timbers,40.15
-24,2024-03-01,Real Salt Lake,32.43
-24,2024-03-01,San Jose Earthquakes,32.93
-24,2024-03-01,Seattle Sounders FC,55.20
-24,2024-03-01,St.Louis City,34.76
-24,2024-03-01,Toronto FC,34.35
-24,2024-03-01,Vancouver Whitecaps,36.15
-25,2025-03-01,Atlanta United,61.18
-25,2025-03-01,Austin FC,42.83
-25,2025-03-01,Charlotte FC,42.75
-25,2025-03-01,Chicago Fire,37.50
-25,2025-03-01,FC Cincinnati,62.85
-25,2025-03-01,Colorado Rapids,38.08
-25,2025-03-01,Columbus Crew,37.20
-25,2025-03-01,FC Dallas,38.40
-25,2025-03-01,DC United,27.60
-25,2025-03-01,Houston Dynamo,33.83
-25,2025-03-01,Inter Miami CF,67.95
-25,2025-03-01,Sporting Kansas City,32.78
-25,2025-03-01,LA Galaxy,70.60
-25,2025-03-01,Los Angeles FC,50.80
-25,2025-03-01,Minnesota United,39.68
-25,2025-03-01,CF Montréal,29.43
-25,2025-03-01,Nashville SC,38.43
-25,2025-03-01,New England Revolution,34.43
-25,2025-03-01,New York City FC,33.78
-25,2025-03-01,New York Red Bulls,40.30
-25,2025-03-01,Orlando City SC,43.03
-25,2025-03-01,Philadelphia Union,39.80
-25,2025-03-01,Portland Timbers,47.10
-25,2025-03-01,Real Salt Lake,32.55
-25,2025-03-01,San Diego FC,43.55
-25,2025-03-01,San Jose Earthquakes,33.88
-25,2025-03-01,Seattle Sounders FC,51.60
-25,2025-03-01,St.Louis City,40.24
-25,2025-03-01,Toronto FC,26.10
-25,2025-03-01,Vancouver Whitecaps,38.95
-26,2026-03-01,Atlanta United,57.55
-26,2026-03-01,Austin FC,51.65
-26,2026-03-01,Charlotte FC,40.98
-26,2026-03-01,Chicago Fire,45.63
-26,2026-03-01,FC Cincinnati,57.95
-26,2026-03-01,Colorado Rapids,36.90
-26,2026-03-01,Columbus Crew,56.68
-26,2026-03-01,FC Dallas,31.63
-26,2026-03-01,DC United,29.23
-26,2026-03-01,Houston Dynamo,37.35
-26,2026-03-01,Inter Miami CF,84.88
-26,2026-03-01,Sporting Kansas City,24.95
-26,2026-03-01,LA Galaxy,60.30
-26,2026-03-01,Los Angeles FC,68.20
-26,2026-03-01,Minnesota United,44.45
-26,2026-03-01,CF Montréal,32.40
-26,2026-03-01,Nashville SC,40.20
-26,2026-03-01,New England Revolution,35.85
-26,2026-03-01,New York City FC,48.03
-26,2026-03-01,New York Red Bulls,30.35
-26,2026-03-01,Orlando City SC,47.68
-26,2026-03-01,Philadelphia Union,37.18
-26,2026-03-01,Portland Timbers,47.70
-26,2026-03-01,Real Salt Lake,41.78
-26,2026-03-01,San Diego FC,47.85
-26,2026-03-01,San Jose Earthquakes,20.93
-26,2026-03-01,Seattle Sounders FC,45.00
-26,2026-03-01,St.Louis City,34.55
-26,2026-03-01,Toronto FC,51.55
-26,2026-03-01,Vancouver Whitecaps,57.98
+2020,2020-02-29,Atlanta United,59.23
+2020,2020-02-29,CF Montreal,16.20
+2020,2020-02-29,Chicago Fire FC,17.43
+2020,2020-02-29,Colorado Rapids,20.53
+2020,2020-02-29,Columbus Crew,27.35
+2020,2020-02-29,DC United,23.33
+2020,2020-02-29,FC Cincinnati,25.38
+2020,2020-02-29,FC Dallas,22.35
+2020,2020-02-29,Houston Dynamo FC,22.43
+2020,2020-02-29,Inter Miami CF,40.05
+2020,2020-02-29,LA Galaxy,36.63
+2020,2020-02-29,Los Angeles FC,57.13
+2020,2020-02-29,Minnesota United,19.33
+2020,2020-02-29,Nashville SC,16.45
+2020,2020-02-29,New England Revolution,19.03
+2020,2020-02-29,New York City FC,32.05
+2020,2020-02-29,Orlando City,24.20
+2020,2020-02-29,Philadelphia Union,16.85
+2020,2020-02-29,Portland Timbers,28.35
+2020,2020-02-29,Real Salt Lake,16.15
+2020,2020-02-29,Red Bull New York,24.45
+2020,2020-02-29,San Jose Earthquakes,18.18
+2020,2020-02-29,Seattle Sounders FC,32.10
+2020,2020-02-29,Sporting Kansas City,22.75
+2020,2020-02-29,Toronto FC,34.25
+2020,2020-02-29,Vancouver Whitecaps,20.48
+2021,2021-04-16,Atlanta United,60.55
+2021,2021-04-16,Austin FC,24.70
+2021,2021-04-16,CF Montreal,26.85
+2021,2021-04-16,Chicago Fire FC,23.60
+2021,2021-04-16,Colorado Rapids,30.25
+2021,2021-04-16,Columbus Crew,37.58
+2021,2021-04-16,DC United,26.73
+2021,2021-04-16,FC Cincinnati,35.95
+2021,2021-04-16,FC Dallas,22.65
+2021,2021-04-16,Houston Dynamo FC,17.88
+2021,2021-04-16,Inter Miami CF,57.53
+2021,2021-04-16,LA Galaxy,22.38
+2021,2021-04-16,Los Angeles FC,67.25
+2021,2021-04-16,Minnesota United,39.98
+2021,2021-04-16,Nashville SC,30.73
+2021,2021-04-16,New England Revolution,30.03
+2021,2021-04-16,New York City FC,31.93
+2021,2021-04-16,Orlando City,33.70
+2021,2021-04-16,Philadelphia Union,22.30
+2021,2021-04-16,Portland Timbers,33.18
+2021,2021-04-16,Real Salt Lake,17.88
+2021,2021-04-16,Red Bull New York,23.35
+2021,2021-04-16,San Jose Earthquakes,20.45
+2021,2021-04-16,Seattle Sounders FC,32.75
+2021,2021-04-16,Sporting Kansas City,29.95
+2021,2021-04-16,Toronto FC,41.03
+2021,2021-04-16,Vancouver Whitecaps,24.55
+2022,2022-02-26,Atlanta United,77.25
+2022,2022-02-26,Austin FC,30.95
+2022,2022-02-26,CF Montreal,29.40
+2022,2022-02-26,Charlotte FC,24.48
+2022,2022-02-26,Chicago Fire FC,26.98
+2022,2022-02-26,Colorado Rapids,29.18
+2022,2022-02-26,Columbus Crew,33.03
+2022,2022-02-26,DC United,23.00
+2022,2022-02-26,FC Cincinnati,24.38
+2022,2022-02-26,FC Dallas,40.03
+2022,2022-02-26,Houston Dynamo FC,21.07
+2022,2022-02-26,Inter Miami CF,23.50
+2022,2022-02-26,LA Galaxy,36.25
+2022,2022-02-26,Los Angeles FC,51.33
+2022,2022-02-26,Minnesota United,36.35
+2022,2022-02-26,Nashville SC,30.45
+2022,2022-02-26,New England Revolution,40.45
+2022,2022-02-26,New York City FC,40.83
+2022,2022-02-26,Orlando City,34.13
+2022,2022-02-26,Philadelphia Union,31.20
+2022,2022-02-26,Portland Timbers,28.15
+2022,2022-02-26,Real Salt Lake,18.10
+2022,2022-02-26,Red Bull New York,28.08
+2022,2022-02-26,San Jose Earthquakes,33.78
+2022,2022-02-26,Seattle Sounders FC,46.20
+2022,2022-02-26,Sporting Kansas City,33.43
+2022,2022-02-26,Toronto FC,34.18
+2022,2022-02-26,Vancouver Whitecaps,35.93
+2023,2023-02-25,Atlanta United,53.03
+2023,2023-02-25,Austin FC,49.68
+2023,2023-02-25,CF Montreal,28.33
+2023,2023-02-25,Charlotte FC,35.98
+2023,2023-02-25,Chicago Fire FC,31.95
+2023,2023-02-25,Colorado Rapids,33.15
+2023,2023-02-25,Columbus Crew,34.80
+2023,2023-02-25,DC United,29.30
+2023,2023-02-25,FC Cincinnati,44.95
+2023,2023-02-25,FC Dallas,42.78
+2023,2023-02-25,Houston Dynamo FC,26.40
+2023,2023-02-25,Inter Miami CF,31.93
+2023,2023-02-25,LA Galaxy,40.35
+2023,2023-02-25,Los Angeles FC,52.86
+2023,2023-02-25,Minnesota United,34.98
+2023,2023-02-25,Nashville SC,35.40
+2023,2023-02-25,New England Revolution,38.63
+2023,2023-02-25,New York City FC,48.58
+2023,2023-02-25,Orlando City,42.08
+2023,2023-02-25,Philadelphia Union,49.40
+2023,2023-02-25,Portland Timbers,39.75
+2023,2023-02-25,Real Salt Lake,24.70
+2023,2023-02-25,Red Bull New York,38.65
+2023,2023-02-25,San Jose Earthquakes,44.85
+2023,2023-02-25,Seattle Sounders FC,49.03
+2023,2023-02-25,Sporting Kansas City,37.75
+2023,2023-02-25,St. Louis City,19.95
+2023,2023-02-25,Toronto FC,52.90
+2023,2023-02-25,Vancouver Whitecaps,36.25
+2024,2024-02-21,Atlanta United,61.30
+2024,2024-02-21,Austin FC,37.03
+2024,2024-02-21,CF Montreal,36.35
+2024,2024-02-21,Charlotte FC,24.10
+2024,2024-02-21,Chicago Fire FC,34.55
+2024,2024-02-21,Colorado Rapids,32.43
+2024,2024-02-21,Columbus Crew,44.60
+2024,2024-02-21,DC United,24.25
+2024,2024-02-21,FC Cincinnati,43.80
+2024,2024-02-21,FC Dallas,49.33
+2024,2024-02-21,Houston Dynamo FC,31.28
+2024,2024-02-21,Inter Miami CF,90.13
+2024,2024-02-21,LA Galaxy,41.78
+2024,2024-02-21,Los Angeles FC,41.70
+2024,2024-02-21,Minnesota United,35.88
+2024,2024-02-21,Nashville SC,43.25
+2024,2024-02-21,New England Revolution,42.18
+2024,2024-02-21,New York City FC,46.00
+2024,2024-02-21,Orlando City,45.50
+2024,2024-02-21,Philadelphia Union,54.23
+2024,2024-02-21,Portland Timbers,40.25
+2024,2024-02-21,Real Salt Lake,32.85
+2024,2024-02-21,Red Bull New York,34.60
+2024,2024-02-21,San Jose Earthquakes,32.93
+2024,2024-02-21,Seattle Sounders FC,55.20
+2024,2024-02-21,Sporting Kansas City,31.13
+2024,2024-02-21,St. Louis City,34.76
+2024,2024-02-21,Toronto FC,30.15
+2024,2024-02-21,Vancouver Whitecaps,36.00
+2025,2025-02-22,Atlanta United,61.18
+2025,2025-02-22,Austin FC,42.83
+2025,2025-02-22,CF Montreal,29.38
+2025,2025-02-22,Charlotte FC,42.75
+2025,2025-02-22,Chicago Fire FC,38.30
+2025,2025-02-22,Colorado Rapids,36.58
+2025,2025-02-22,Columbus Crew,37.38
+2025,2025-02-22,DC United,23.50
+2025,2025-02-22,FC Cincinnati,48.85
+2025,2025-02-22,FC Dallas,38.40
+2025,2025-02-22,Houston Dynamo FC,33.63
+2025,2025-02-22,Inter Miami CF,67.95
+2025,2025-02-22,LA Galaxy,66.80
+2025,2025-02-22,Los Angeles FC,43.30
+2025,2025-02-22,Minnesota United,39.83
+2025,2025-02-22,Nashville SC,35.43
+2025,2025-02-22,New England Revolution,34.43
+2025,2025-02-22,New York City FC,38.28
+2025,2025-02-22,Orlando City,44.18
+2025,2025-02-22,Philadelphia Union,37.10
+2025,2025-02-22,Portland Timbers,54.10
+2025,2025-02-22,Real Salt Lake,35.95
+2025,2025-02-22,Red Bull New York,40.30
+2025,2025-02-22,San Diego FC,43.55
+2025,2025-02-22,San Jose Earthquakes,33.88
+2025,2025-02-22,Seattle Sounders FC,53.10
+2025,2025-02-22,Sporting Kansas City,31.63
+2025,2025-02-22,St. Louis City,42.04
+2025,2025-02-22,Toronto FC,22.90
+2025,2025-02-22,Vancouver Whitecaps,38.15
+2026,2026-02-21,Atlanta United,56.45
+2026,2026-02-21,Austin FC,51.45
+2026,2026-02-21,CF Montreal,32.40
+2026,2026-02-21,Charlotte FC,40.98
+2026,2026-02-21,Chicago Fire FC,46.08
+2026,2026-02-21,Colorado Rapids,36.10
+2026,2026-02-21,Columbus Crew,52.18
+2026,2026-02-21,DC United,29.43
+2026,2026-02-21,FC Cincinnati,57.95
+2026,2026-02-21,FC Dallas,33.30
+2026,2026-02-21,Houston Dynamo FC,38.85
+2026,2026-02-21,Inter Miami CF,84.88
+2026,2026-02-21,LA Galaxy,60.50
+2026,2026-02-21,Los Angeles FC,68.20
+2026,2026-02-21,Minnesota United,45.25
+2026,2026-02-21,Nashville SC,39.40
+2026,2026-02-21,New England Revolution,35.85
+2026,2026-02-21,New York City FC,48.03
+2026,2026-02-21,Orlando City,46.18
+2026,2026-02-21,Philadelphia Union,36.73
+2026,2026-02-21,Portland Timbers,43.70
+2026,2026-02-21,Real Salt Lake,41.48
+2026,2026-02-21,Red Bull New York,29.90
+2026,2026-02-21,San Diego FC,47.95
+2026,2026-02-21,San Jose Earthquakes,20.13
+2026,2026-02-21,Seattle Sounders FC,45.80
+2026,2026-02-21,Sporting Kansas City,22.90
+2026,2026-02-21,St. Louis City,33.05
+2026,2026-02-21,Toronto FC,26.55
+2026,2026-02-21,Vancouver Whitecaps,58.18
