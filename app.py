@@ -74,8 +74,7 @@ def load_standings_sims():
     standings_sims['Last'] = standings_sims[['18','19','20']].sum(axis=1)
 
     standings_sims['range'] = standings_sims[['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']].apply(credible_range_str, axis=1)
-    season_temp =  pd.to_datetime(standings_sims.Sim_Date).dt.year - ( pd.to_datetime(standings_sims.Sim_Date).dt.month <= 6).astype('int')
-    standings_sims['season'] = season_temp.astype('str') + '/' + (season_temp + 1).astype('str') 
+    standings_sims['season'] = pd.to_datetime(standings_sims.Sim_Date).dt.year.astype('int')
     match_sims = []
     for file in match_files:
         temp = pd.read_feather('data/Sim_States/'+file)
@@ -671,7 +670,7 @@ def create_mvp_figure(plot_df):
 
 def create_multi_year_standings(team_ratings,standings):
     temp1 = team_ratings.groupby('Team').head(1).reset_index()
-    temp1.Season = (temp1.Season.str.split('/').str[0].astype('int') - 1).astype('str') + '/'  + (temp1.Season.str.split('/').str[1].astype('int') - 1).astype('str')
+    temp1.Season = (temp1.Season.astype('int') - 1)
     temp2 = team_ratings.groupby(['Team','Season']).tail(1).reset_index()
     temp_season_ratings = pd.concat((temp1,temp2))[['Season','Team','A','B','C']].sort_values(['Team','Season'])
     temp_season_ratings[['A_C','B_C','C_C']] = temp_season_ratings[['A','B','C']] - temp_season_ratings.groupby('Team')[['A','B','C']].shift(periods=1)
@@ -730,7 +729,7 @@ def plot_history_table(results):
 
 
     for _, row in results.iterrows():
-        ax.annotate(str(row['Season']).split('/')[1], (col_x['1']+0.035, i_loc), va='center', ha='center', size=7)
+        ax.annotate(str(row['Season']), (col_x['1']+0.035, i_loc), va='center', ha='center', size=7)
         ax.annotate(f"{int(row['F_p'])}", (col_x['Points']+0.035, i_loc), va='center', ha='center', size=7)
         ax.annotate(f"{row['F_xpts']:.1f}", (col_x['Points']+0.095, i_loc), va='center', ha='center', size=7)
         ax.annotate(f"{int(row['GD'])}", (col_x['GD']+0.035, i_loc), va='center', ha='center', size=7)
@@ -1230,8 +1229,6 @@ color_map = pd.DataFrame([['Atlanta United','#cc0000','#FFFFFF'],
 team_colors = color_map.to_dict('index')
 matches = pd.read_feather('data/matches.ftr')
 player_stats = pd.read_feather('data/PlayerStats.ftr')
-season_temp =  pd.to_datetime(player_stats.Date).dt.year - (pd.to_datetime(player_stats.Date).dt.month <= 6).astype('int')
-player_stats['season'] = season_temp.astype('str') + '/' + (season_temp + 1).astype('str') 
 team_ratings = pd.read_feather('data/team_ratings.ftr')
 team_ratings = team_ratings[['Season','Date']].drop_duplicates().merge(team_ratings[['Season','Team']].drop_duplicates()).merge(
     team_ratings,how='outer').sort_values(['Team','Date'])
