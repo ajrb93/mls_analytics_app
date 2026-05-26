@@ -70,8 +70,8 @@ def load_standings_sims():
     standings_sims.Sim_Date = pd.to_datetime(standings_sims.Sim_Date).dt.date
     standings_sims = standings_sims.fillna(0)
     standings_sims['Champ'] = standings_sims['1']
-    standings_sims['Playoffs'] = standings_sims[['1','2','3','4','5']].sum(axis=1)
-    standings_sims['Last'] = standings_sims[['18','19','20']].sum(axis=1)
+    standings_sims['Playoffs'] = standings_sims[['conf_1','conf_2','conf_3','conf_4']].sum(axis=1)
+    standings_sims['Last'] = standings_sims[['conf_1','conf_2','conf_3','conf_4','conf_5','conf_6','conf_7','conf_8','conf_9']].sum(axis=1)
 
     standings_sims['range'] = standings_sims[['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']].apply(credible_range_str, axis=1)
     standings_sims['season'] = pd.to_datetime(standings_sims.Sim_Date).dt.year.astype('int')
@@ -148,8 +148,8 @@ def plot_standings_table(standings_df):
     ax.annotate('Points',     (6.15/10, 0.97), va='center', ha='center', size=10, weight='bold')
     ax.annotate('GD',         (6.7/10,  0.97), va='center', ha='center', size=10, weight='bold')
     ax.annotate('Champ',      (7.45/10, 0.97), va='center', ha='center', size=10, weight='bold')
-    ax.annotate('CL',    (8.3/10,  0.97), va='center', ha='center', size=10, weight='bold')
-    ax.annotate('Rel',       (9.1/10,  0.97), va='center', ha='center', size=10, weight='bold')
+    ax.annotate('HF',    (8.3/10,  0.97), va='center', ha='center', size=10, weight='bold')
+    ax.annotate('Playoff',       (9.1/10,  0.97), va='center', ha='center', size=10, weight='bold')
     ax.annotate('Range',      (9.75/10, 0.97), va='center', ha='center', size=10, weight='bold')
 
     # --- VERTICAL DIVIDERS ---
@@ -226,8 +226,8 @@ def plot_standings_table(standings_df):
 
         # Rel + RelΔ
         ax.annotate(f"{row['Last']:.0%}", (8.85/10, i_loc), va='center', ha='center', size=9)
-        delta_color = 'darkgreen' if row['LastΔ'] < 0 else 'darkred'
-        ax.annotate(f"({'+' if row['LastΔ'] < 0 else ''}{row['LastΔ']*-1:.0%})", (9.25/10, i_loc), va='center', ha='center', size=9, color=delta_color)
+        delta_color = 'darkgreen' if row['LastΔ'] > 0 else 'darkred'
+        ax.annotate(f"({'+' if row['LastΔ'] > 0 else ''}{row['LastΔ']:.0%})", (9.25/10, i_loc), va='center', ha='center', size=9, color=delta_color)
 
         # Range
         ax.annotate(row['range'], (9.75/10, i_loc), va='center', ha='center', size=9)
@@ -250,7 +250,7 @@ def plot_ratings_scatter(standings_df, team_colors):
     def_mean = standings_df['dPRE'].mean()
 
     # Diagonal reference lines (equivalent to your matplotlib lines)
-    for offset in [-2/3, -1/3, 0, 1/3, 2/3]:
+    for offset in [-1,-2/3, -1/3, 0, 1/3, 2/3,1]:
         x_start = def_mean * 2
         x_end = def_mean * 0.25
         fig.add_trace(go.Scatter(
@@ -301,12 +301,12 @@ def plot_ratings_scatter(standings_df, team_colors):
 
     fig.update_layout(
         xaxis=dict(
-            range=[def_mean * 1.5, def_mean * 0.5],  # inverted — lower def is better
+            range=[def_mean * 2, def_mean * 0.25],  # inverted — lower def is better
             title='Defensive Rating',
             showgrid=False
         ),
         yaxis=dict(
-            range=[off_mean * 0.5, off_mean * 1.5],
+            range=[off_mean * 0.25, off_mean * 2],
             title='Offensive Rating',
             showgrid=False,
             scaleanchor='x',
@@ -323,7 +323,7 @@ def plot_ratings_scatter(standings_df, team_colors):
 def plot_position_heatmap(standings_sims, standings_df, selected_end_date, team_colors):
     # Get position probabilities for selected date, ordered by current standings
     sim_data = standings_sims[standings_sims.Sim_Date == selected_end_date].set_index('index')
-    position_cols = [str(i) for i in range(1, 20)]
+    position_cols = [str(i) for i in range(1, 30)]
     
     # Order teams by current points (same order as standings table)
     teams_ordered = standings_df['Team'].tolist()
