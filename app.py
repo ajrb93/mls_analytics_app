@@ -73,7 +73,7 @@ def load_standings_sims():
     standings_sims['Playoffs'] = standings_sims[['conf_1','conf_2','conf_3','conf_4']].sum(axis=1)
     standings_sims['Last'] = standings_sims[['conf_1','conf_2','conf_3','conf_4','conf_5','conf_6','conf_7','conf_8','conf_9']].sum(axis=1)
 
-    standings_sims['range'] = standings_sims[['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20']].apply(credible_range_str, axis=1)
+    standings_sims['range'] = standings_sims[['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30']].apply(credible_range_str, axis=1)
     standings_sims['season'] = pd.to_datetime(standings_sims.Sim_Date).dt.year.astype('int')
     match_sims = []
     for file in match_files:
