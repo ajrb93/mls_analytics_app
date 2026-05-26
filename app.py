@@ -1229,6 +1229,7 @@ color_map = pd.DataFrame([['Atlanta United','#cc0000','#FFFFFF'],
 team_colors = color_map.to_dict('index')
 matches = pd.read_feather('data/matches.ftr')
 player_stats = pd.read_feather('data/PlayerStats.ftr')
+player_stats['season'] = player_stats.Date.dt.year
 team_ratings = pd.read_feather('data/team_ratings.ftr')
 team_ratings = team_ratings[['Season','Date']].drop_duplicates().merge(team_ratings[['Season','Team']].drop_duplicates()).merge(
     team_ratings,how='outer').sort_values(['Team','Date'])
