@@ -13,7 +13,7 @@ import numpy as np
 import unicodedata
 
 # --- 1. CONFIG & COMPACT STYLING ---
-st.set_page_config(layout="wide", page_title="English Premier League")
+st.set_page_config(layout="wide", page_title="Major League Soccer")
 
 # CUSTOM CSS: Shrinks headers, table padding, and overall container gaps
 st.markdown("""
@@ -927,15 +927,15 @@ def plot_spi_chart(data):
         fig.add_vline(x=pd.Timestamp(f'{year}-08-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
     fig.update_layout(height=105, margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0.05, 0.95], tickvals=[i/10 for i in range(1, 11, 2)],tickformat='.0%'),
                       plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
-    season_start = '08-01'
-    season_end = '06-01'
+    season_start = '02-01'
+    season_end = '11-01'
 
     rangebreaks = []
     for year in pd.to_datetime(data.Date).dt.year.unique():
     # Gap before season (Jan 3 → season start)
-        rangebreaks.append(dict(bounds=[f'{year}-08-03', f'{year}-{season_start}']))
+        rangebreaks.append(dict(bounds=[f'{year}-02-01', f'{year}-{season_start}']))
     # Gap after season (season end → Dec 31)
-        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-05-31']))
+        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-11-01']))
     fig.update_xaxes(rangebreaks=rangebreaks)
     return fig
 
@@ -1008,15 +1008,15 @@ def plot_offdef_chart(data):
     
     fig.update_layout(height=105,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[0, 2], tickvals=[i/10 for i in np.arange(0,21,5)], tickformat='.2f'),
                       plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
-    season_start = '08-01'
-    season_end = '06-01'
+    season_start = '02-01'
+    season_end = '11-01'
 
     rangebreaks = []
     for year in pd.to_datetime(data.Date).dt.year.unique():
     # Gap before season (Jan 3 → season start)
-        rangebreaks.append(dict(bounds=[f'{year}-08-03', f'{year}-{season_start}']))
+        rangebreaks.append(dict(bounds=[f'{year}-02-01', f'{year}-{season_start}']))
     # Gap after season (season end → Dec 31)
-        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-05-31']))
+        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-11-01']))
     fig.update_xaxes(rangebreaks=rangebreaks)
     return fig
 
@@ -1054,13 +1054,13 @@ def plot_xg_chart(data):
         fig.add_vline(x=pd.Timestamp(f'{year}-01-01').timestamp()*1000,line_dash='dot', line_color='black', line_width=2)
     fig.update_layout(height=105,margin=dict(l=0, r=0, t=0, b=0),yaxis=dict(range=[-4,4], tickvals=list(range(-4, 5)), tickformat='.0f'),
                       plot_bgcolor='rgba(0,0,0,0)',paper_bgcolor='rgba(0,0,0,0)')
-    season_start = '08-01'
-    season_end = '06-01'
+    season_start = '02-01'
+    season_end = '11-01'
 
     rangebreaks = []
     for year in pd.to_datetime(data.Date).dt.year.unique():
-        rangebreaks.append(dict(bounds=[f'{year}-08-03', f'{year}-{season_start}']))
-        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-05-31']))
+        rangebreaks.append(dict(bounds=[f'{year}-02-01', f'{year}-{season_start}']))
+        rangebreaks.append(dict(bounds=[f'{year}-{season_end}', f'{year}-11-01']))
     fig.update_xaxes(rangebreaks=rangebreaks)
     return fig
 
@@ -1196,34 +1196,36 @@ def plot_player_heatmaps(df,selected_team,selected_season):
     return fig
 
 standings = pd.read_feather('data/standings.ftr').reset_index()
-color_map = pd.DataFrame([['Arsenal','#cc0000','#FFFFFF'],
-                          ['Aston Villa','#670e36','#94bee5'],
-                          ['Brighton & Hove Albion','#0054a6','#ffffff'],
-                          ['Burnley','#81204c','#8fd2f4'],
-                          ['Chelsea','#0310a7','#ffffff'],
-                          ['Crystal Palace','#0033ff','#b90d2b'],
-                          ['Everton','#274488','#ffffff'],
-                          ['Fulham','#ffffff','#000000'],
-                          ['Leeds United','#ffffff','#1d4189'],
-                          ['Leicester City','#003090','#ffffff'],
-                          ['Liverpool','#cc0000','#ffffff'],
-                          ['Manchester City','#66ccff','#ffffff'],
-                          ['Manchester United','#ff0000','#373737'],
-                          ['Newcastle United','#000000','#ffffff'],
-                          ['Sheffield United','#ffffff','#ff0000'],
-                          ['Southampton','#ff0000','#FFFFFF'],
-                          ['Tottenham Hotspur','#ffffff','#000066'],
-                          ['West Bromwich Albion','#122F67','#FFFFFF'],
-                          ['West Ham United','#66192c','#59b3e4'],
-                          ['Wolverhampton Wanderers','#ff9900','#000000'],
-                          ['Brentford','#ffffff','#ff0000'],
-                          ['Norwich City','#FFF200','#00A650'],
-                          ['Watford','#FBEE23','#ED2127'],
-                          ['AFC Bournemouth','#000000','#cc0000'],
-                          ['Nottingham Forest','#DD0000','#FFFFFF'],
-                          ['Luton Town','#ff3300','#000033'],
-                          ['Ipswich Town','#0000ff','#ffffff'],
-                          ['Sunderland','#ffffff','#ca0000'],
+color_map = pd.DataFrame([['Atlanta United','#cc0000','#FFFFFF'],
+                          ['Austin FC','#670e36','#94bee5'],
+                          ['CF Montreal','#0054a6','#ffffff'],
+                          ['Charlotte FC','#81204c','#8fd2f4'],
+                          ['Chicago Fire FC','#0310a7','#ffffff'],
+                          ['Colorado Rapids','#0033ff','#b90d2b'],
+                          ['Columbus Crew','#274488','#ffffff'],
+                          ['DC United','#ffffff','#000000'],
+                          ['FC Cincinnati','#ffffff','#1d4189'],
+                          ['FC Dallas','#003090','#ffffff'],
+                          ['Houston Dynamo FC','#cc0000','#ffffff'],
+                          ['Inter Miami CF','#66ccff','#ffffff'],
+                          ['LA Galaxy','#ff0000','#373737'],
+                          ['Los Angeles FC','#000000','#ffffff'],
+                          ['Minnesota United','#ffffff','#ff0000'],
+                          ['Nashville SC','#ff0000','#FFFFFF'],
+                          ['New England Revolution','#ffffff','#000066'],
+                          ['New York City FC','#122F67','#FFFFFF'],
+                          ['Orlando City','#66192c','#59b3e4'],
+                          ['Philadelphia Union','#ff9900','#000000'],
+                          ['Portland Timbers','#ffffff','#ff0000'],
+                          ['Real Salt Lake','#FFF200','#00A650'],
+                          ['Red Bull New York','#FBEE23','#ED2127'],
+                          ['San Diego FC','#000000','#cc0000'],
+                          ['San Jose Earthquakes','#DD0000','#FFFFFF'],
+                          ['Seattle Sounders FC','#ff3300','#000033'],
+                          ['Sporting Kansas City','#0000ff','#ffffff'],
+                          ['St. Louis City','#ffffff','#ca0000'],
+                          ['Toronto FC','#ffffff','#ca0000'],
+                          ['Vancouver Whitecaps','#ffffff','#ca0000'],
                           ],columns=['team','home_primary','home_secondary']).set_index('team')
 team_colors = color_map.to_dict('index')
 matches = pd.read_feather('data/matches.ftr')
