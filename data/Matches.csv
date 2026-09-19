@@ -1480,6 +1480,78 @@
  0.06280652 0.02446731 0.03876111 0.05285732 0.19217104 0.21913795
  0.10166784 0.08469778 0.10972822 0.04509011 0.09199066 0.7884    ]"|"[0.28351375 0.07371859 0.01902377 0.0538219  0.02509372 0.0309389
  0.06753089 0.04069168 0.03504797 0.03231315]"|2026|True|True
+0|5071352|2026-09-12|Regular|Columbus Crew|Red Bull New York|0.0|1.0|1.94|1.35|"[0.1681482  0.81299126 0.11561446 0.03854588 0.027258   0.39668846
+ 0.08553108 0.03511138 0.03743702 0.17495264 0.04684731]"|"[0.03202915 0.04526275 0.01598924 0.07192521 0.07492464 0.04162244
+ 0.49054995 0.06978369 0.04199564 0.05077637 0.04571275 0.05291541
+ 0.02668783 0.06805855 0.21989103]"|2026|True|True
+0|5071353|2026-09-12|Regular|DC United|Atlanta United|0.0|0.0|0.19|1.62|[0.05966706 0.03703413 0.00994094 0.08646719]|"[0.13374379 0.00634325 0.02892812 0.02583583 0.03789548 0.0192572
+ 0.09207845 0.08232524 0.05861194 0.02795334 0.00668765 0.02650869
+ 0.0692494  0.15317088 0.29904288 0.03677877 0.02286122 0.07734793
+ 0.03035883 0.38516873]"|2026|True|True
+0|5071351|2026-09-12|Regular|FC Cincinnati|Charlotte FC|3.0|3.0|2.29|2.07|"[0.14322738 0.05480261 0.07337318 0.03397404 0.13100372 0.16060412
+ 0.01405842 0.04276068 0.03795953 0.06647235 0.03622638 0.11293111
+ 0.04621459 0.11060768 0.06440783 0.09711128 0.03724239 0.10479341
+ 0.04958099 0.03511138 0.02098711 0.03668239 0.06206164 0.06676749
+ 0.4595679  0.05681838 0.03825858 0.02267327]"|"[0.25909922 0.03715773 0.7884     0.13615012 0.0437117  0.01641666
+ 0.69336671 0.09186912]"|2026|True|True
+0|5071354|2026-09-12|Regular|Inter Miami CF|Nashville SC|2.0|2.0|1.62|2.41|"[0.06598344 0.02386507 0.06294952 0.1043637  0.15626982 0.05559962
+ 0.04045811 0.1613885  0.05754136 0.38060787 0.05403546 0.05603712
+ 0.37324664 0.08901324]"|"[0.2151853  0.05081639 0.         0.0316131  0.0834484  0.03108211
+ 0.06271946 0.15571918 0.0332085  0.06510472 0.03232338 0.03336459
+ 0.03670789 0.33426446 0.13537019 0.04211177 0.03934361 0.98233634
+ 0.04812493]"|2026|True|True
+0|5071355|2026-09-12|Regular|Orlando City|Toronto FC|3.0|0.0|1.96|2.85|"[0.05724469 0.18019646 0.01207137 0.68706393 0.01174131 0.04405472
+ 0.04589437 0.19846204 0.12531663 0.06098758 0.0192572  0.0279686
+ 0.49355856]"|"[0.28373355 0.0413221  0.03077352 0.01520901 0.37184042 0.05182211
+ 0.0493642  0.6070292  0.2412217  0.4452588  0.03978543 0.10712933
+ 0.14225736 0.07051057 0.10488163 0.11224246 0.08068278 0.05150076]"|2026|True|True
+0|5071357|2026-09-12|Regular|FC Dallas|Portland Timbers|2.0|1.0|1.2|1.25|"[0.01449629 0.03425736 0.23129405 0.08503043 0.05016574 0.20833488
+ 0.0130179  0.3303895  0.24497598]"|"[0.02899761 0.03084906 0.03297301 0.066582   0.0192607  0.07804894
+ 0.01093165 0.05128938 0.07523779 0.18963353 0.05907794 0.11382886
+ 0.24501841 0.03298723 0.04849947 0.14370587 0.02195797]"|2026|True|True
+0|5071358|2026-09-12|Regular|Sporting Kansas City|Los Angeles FC|3.0|1.0|1.95|2.19|"[0.01964574 0.06743417 0.03828915 0.01600315 0.11723798 0.96589983
+ 0.04141238 0.02649905 0.01164914 0.03919568 0.0944486  0.08578558
+ 0.13525054 0.02382872 0.04758009 0.16435705 0.03835066 0.11826057
+ 0.01089143 0.01156827]"|"[0.00378361 0.04823236 0.06251761 0.03941445 0.05770533 0.08140781
+ 0.06662399 0.5308075  0.12183104 0.01939897 0.05226038 0.27615425
+ 0.01969938 0.03125563 0.06501728 0.03432853 0.01066926 0.01964574
+ 0.06661142 0.2513414  0.25553703 0.07778112]"|2026|True|True
+0|5071362|2026-09-12|Regular|St. Louis City|Minnesota United|4.0|2.0|2.85|1.75|"[0.1776126  0.0358621  0.01697032 0.01564584 0.65660423 0.06578495
+ 0.02997018 0.2578322  0.01704072 0.07138349 0.7884     0.03446582
+ 0.03919568 0.65305585]"|"[0.39045453 0.00942996 0.03307139 0.0254944  0.7884     0.02096284
+ 0.05241811 0.0305394  0.18264642 0.12953459 0.09099195]"|2026|True|True
+0|5071356|2026-09-12|Regular|Colorado Rapids|CF Montreal|1.0|0.0|2.07|0.73|"[0.03945344 0.24027959 0.04069468 0.0186339  0.0760897  0.05809645
+ 0.7884     0.01376551 0.23238166 0.0447121  0.03932776 0.08385468
+ 0.21938787 0.03267471 0.07351328 0.02400488 0.06233732]"|"[0.2195507  0.04318779 0.01880135 0.04023881 0.08822355 0.02545466
+ 0.06883833 0.03694062 0.08699469 0.07227657 0.02698747]"|2026|True|True
+0|5071360|2026-09-12|Regular|Real Salt Lake|New York City FC|0.0|2.0|1.09|0.51|"[0.01857602 0.0247957  0.23468435 0.24060677 0.06636138 0.05083655
+ 0.06917397 0.02048478 0.02677715 0.04470564 0.03650726 0.02738618
+ 0.01813923 0.16655026 0.04595418]"|[0.01981732 0.07473677 0.05124525 0.02249006 0.32118779 0.02462959]|2026|True|True
+0|5071359|2026-09-12|Regular|LA Galaxy|Seattle Sounders FC|1.0|1.0|2.48|2.2|"[0.0480563  0.01995663 0.1256323  0.10420033 0.0967336  0.02071605
+ 0.13152115 0.28218001 0.0589874  0.7884     0.04853763 0.24795796
+ 0.11835708 0.02503211 0.18371964 0.07894827 0.07536604 0.02448139]"|"[0.15577179 0.2183421  0.07063639 0.05156396 0.08707211 0.04355109
+ 0.13097849 0.05026099 0.09394008 0.02403978 0.08193978 0.0713163
+ 0.02920431 0.97124815 0.04889547 0.01566011 0.05155055]"|2026|True|True
+0|5071361|2026-09-12|Regular|San Jose Earthquakes|Houston Dynamo FC|1.0|0.0|1.38|1.02|"[0.0509938  0.01826233 0.13509154 0.06740235 0.02442599 0.10887849
+ 0.0709513  0.79516852 0.06407883 0.04403554]"|"[0.02872582 0.06292012 0.03274101 0.12006465 0.1333454  0.02174672
+ 0.04019341 0.34852582 0.28198829 0.0258703  0.02089895]"|2026|True|True
+0|5071363|2026-09-13|Regular|Chicago Fire FC|New England Revolution|1.0|2.0|1.95|1.26|"[0.17181367 0.13538094 0.06699823 0.10587708 0.15959845 0.16206878
+ 0.21693592 0.05541372 0.04561334 0.03453742 0.10698523 0.01678622
+ 0.19078186 0.02541987 0.02002113 0.02346654 0.07458283 0.02664538
+ 0.19819824 0.02263532 0.04337154 0.05098493]"|[0.05168115 0.56536996 0.62059766 0.0205872 ]|2026|True|True
+0|5071364|2026-09-13|Regular|Vancouver Whitecaps|Austin FC|1.0|2.0|3.33|1.05|"[0.09581976 0.02615996 0.02201853 0.07256081 0.7884     0.10218049
+ 0.02043916 0.4777109  0.55370563 0.07394718 0.42645454 0.04659424
+ 0.04582203 0.06774491 0.07859853 0.0202152  0.05799391 0.24695584
+ 0.01563651 0.08804426]"|[0.58511448 0.0632657  0.0361727  0.36777812]|2026|True|True
+0|5071365|2026-09-13|Regular|San Diego FC|Philadelphia Union|0.0|5.0|1.21|2.75|"[0.12252348 0.2996915  0.12827386 0.23706946 0.03974045 0.03014386
+ 0.04801314 0.27053985 0.04576868 0.02505964 0.        ]"|"[0.05283907 0.09404394 0.06761909 0.01773333 0.16330163 0.08219747
+ 0.04120217 0.08828756 0.12384951 0.00668765 0.0459992  0.42837083
+ 0.02840662 0.11418615 0.06957471 0.39861852 0.03646151 0.0397681
+ 0.02682294 0.03672236 0.78632885]"|2026|True|True
+0|5071366|2026-09-18|Regular|New York City FC|Red Bull New York|0.0|1.0|2.42|1.4|"[0.0192572  0.02127018 0.08410318 0.0157304  0.04489909 0.04647423
+ 0.14043939 0.52144766 0.14740498 0.02487264 0.22724152 0.04772766
+ 0.07524036 0.32239991 0.53412914 0.14275481]"|"[0.03568066 0.06772991 0.19893062 0.45479113 0.47214428 0.02433806
+ 0.01928887 0.03163633 0.0369209  0.05531941]"|2026|True|True
 0|4694246|2025-02-22|Regular|Los Angeles FC|Minnesota United|1.0|0.0|1.26|0.6|"[0.01323272 0.1241895  0.02944786 0.04555368 0.01457782 0.02495958
  0.03428975 0.06759773 0.25672686 0.16866332 0.09177034 0.07169799
  0.33356795]"|"[0.13937557 0.06244868 0.04806496 0.01552182 0.01018546 0.09820934
@@ -12777,22 +12849,6 @@
  0.0488 0.0391 0.0293]"|2020|True|True
 0|3456347|2020-10-18|Regular|Columbus Crew|New York City FC|3.0|1.0|3.0|1.0|[0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 1. ]|"[0.0625 0.0625 0.0625 0.0625 0.0625 0.0625 0.0625 0.0625 0.0625 0.0625
  0.0625 0.0625 0.0625 0.0625 0.0625 0.0625]"|2020|True|
-357|5071352|2026-09-12|Regular|Columbus Crew|Red Bull New York|||||||2026|False|False
-358|5071353|2026-09-12|Regular|DC United|Atlanta United|||||||2026|False|False
-359|5071351|2026-09-12|Regular|FC Cincinnati|Charlotte FC|||||||2026|False|False
-360|5071354|2026-09-12|Regular|Inter Miami CF|Nashville SC|||||||2026|False|False
-361|5071355|2026-09-12|Regular|Orlando City|Toronto FC|||||||2026|False|False
-362|5071357|2026-09-12|Regular|FC Dallas|Portland Timbers|||||||2026|False|False
-363|5071358|2026-09-12|Regular|Sporting Kansas City|Los Angeles FC|||||||2026|False|False
-364|5071362|2026-09-12|Regular|St. Louis City|Minnesota United|||||||2026|False|False
-365|5071356|2026-09-12|Regular|Colorado Rapids|CF Montreal|||||||2026|False|False
-366|5071360|2026-09-12|Regular|Real Salt Lake|New York City FC|||||||2026|False|False
-367|5071359|2026-09-12|Regular|LA Galaxy|Seattle Sounders FC|||||||2026|False|False
-368|5071361|2026-09-12|Regular|San Jose Earthquakes|Houston Dynamo FC|||||||2026|False|False
-369|5071363|2026-09-13|Regular|Chicago Fire FC|New England Revolution|||||||2026|False|False
-370|5071364|2026-09-13|Regular|Vancouver Whitecaps|Austin FC|||||||2026|False|False
-371|5071365|2026-09-13|Regular|San Diego FC|Philadelphia Union|||||||2026|False|False
-372|5071366|2026-09-18|Regular|New York City FC|Red Bull New York|||||||2026|False|False
 373|5071368|2026-09-19|Regular|CF Montreal|Columbus Crew|||||||2026|False|False
 374|5071367|2026-09-19|Regular|DC United|Charlotte FC|||||||2026|False|False
 375|5071369|2026-09-19|Regular|New England Revolution|Orlando City|||||||2026|False|False
@@ -12869,63 +12925,64 @@
 446|5071438|2026-10-17|Regular|San Jose Earthquakes|Nashville SC|||||||2026|False|False
 447|5071439|2026-10-17|Regular|Seattle Sounders FC|CF Montreal|||||||2026|False|False
 448|5071440|2026-10-18|Regular|FC Cincinnati|Columbus Crew|||||||2026|False|False
-449|5071444|2026-10-24|Regular|CF Montreal|Nashville SC|||||||2026|False|False
-450|5071442|2026-10-24|Regular|Columbus Crew|Toronto FC|||||||2026|False|False
-451|5071445|2026-10-24|Regular|Red Bull New York|Inter Miami CF|||||||2026|False|False
-452|5071441|2026-10-24|Regular|Atlanta United|Chicago Fire FC|||||||2026|False|False
-453|5071443|2026-10-24|Regular|DC United|FC Cincinnati|||||||2026|False|False
-454|5071446|2026-10-24|Regular|Orlando City|New York City FC|||||||2026|False|False
-455|5071447|2026-10-24|Regular|Philadelphia Union|New England Revolution|||||||2026|False|False
-456|5071448|2026-10-24|Regular|Colorado Rapids|Vancouver Whitecaps|||||||2026|False|False
-457|5071449|2026-10-24|Regular|FC Dallas|San Jose Earthquakes|||||||2026|False|False
-458|5071450|2026-10-24|Regular|Houston Dynamo FC|Minnesota United|||||||2026|False|False
-459|5071453|2026-10-24|Regular|Real Salt Lake|St. Louis City|||||||2026|False|False
-460|5071451|2026-10-24|Regular|Sporting Kansas City|Austin FC|||||||2026|False|False
-461|5071452|2026-10-24|Regular|Portland Timbers|Charlotte FC|||||||2026|False|False
-462|5071454|2026-10-24|Regular|San Diego FC|Seattle Sounders FC|||||||2026|False|False
-463|5071455|2026-10-25|Regular|Los Angeles FC|LA Galaxy|||||||2026|False|False
-464|5071456|2026-10-28|Regular|Charlotte FC|CF Montreal|||||||2026|False|False
-465|5071457|2026-10-28|Regular|Inter Miami CF|FC Cincinnati|||||||2026|False|False
-466|5071458|2026-10-28|Regular|New England Revolution|Red Bull New York|||||||2026|False|False
-467|5071459|2026-10-28|Regular|New York City FC|Atlanta United|||||||2026|False|False
-468|5071460|2026-10-28|Regular|Toronto FC|DC United|||||||2026|False|False
-469|5071461|2026-10-28|Regular|Austin FC|Real Salt Lake|||||||2026|False|False
-470|5071462|2026-10-28|Regular|Chicago Fire FC|Orlando City|||||||2026|False|False
-471|5071463|2026-10-28|Regular|FC Dallas|Columbus Crew|||||||2026|False|False
-472|5071464|2026-10-28|Regular|Minnesota United|Sporting Kansas City|||||||2026|False|False
-473|5071465|2026-10-28|Regular|Nashville SC|Philadelphia Union|||||||2026|False|False
-474|5071468|2026-10-28|Regular|St. Louis City|Portland Timbers|||||||2026|False|False
-475|5071466|2026-10-28|Regular|San Jose Earthquakes|Colorado Rapids|||||||2026|False|False
-476|5071467|2026-10-28|Regular|Seattle Sounders FC|Houston Dynamo FC|||||||2026|False|False
-477|5071469|2026-10-28|Regular|Vancouver Whitecaps|San Diego FC|||||||2026|False|False
-478|5071470|2026-10-31|Regular|Charlotte FC|Orlando City|||||||2026|False|False
-479|5071472|2026-10-31|Regular|Columbus Crew|DC United|||||||2026|False|False
-480|5071471|2026-10-31|Regular|FC Cincinnati|Philadelphia Union|||||||2026|False|False
-481|5071474|2026-10-31|Regular|New York City FC|CF Montreal|||||||2026|False|False
-482|5071476|2026-10-31|Regular|Sporting Kansas City|FC Dallas|||||||2026|False|False
-483|5071479|2026-10-31|Regular|St. Louis City|San Diego FC|||||||2026|False|False
-484|5071477|2026-10-31|Regular|LA Galaxy|Austin FC|||||||2026|False|False
-485|5071478|2026-10-31|Regular|San Jose Earthquakes|Real Salt Lake|||||||2026|False|False
-486|5071475|2026-10-31|Regular|Colorado Rapids|Chicago Fire FC|||||||2026|False|False
-487|5071481|2026-11-01|Regular|Atlanta United|Toronto FC|||||||2026|False|False
-488|5071482|2026-11-01|Regular|Los Angeles FC|Minnesota United|||||||2026|False|False
-489|5071473|2026-11-01|Regular|Nashville SC|Red Bull New York|||||||2026|False|False
-490|5071480|2026-11-01|Regular|Vancouver Whitecaps|Seattle Sounders FC|||||||2026|False|False
-491|5071483|2026-11-01|Regular|New England Revolution|Inter Miami CF|||||||2026|False|False
-492|5071484|2026-11-01|Regular|Portland Timbers|Houston Dynamo FC|||||||2026|False|False
-493|5071429|2026-11-04|Regular|New York City FC|Los Angeles FC|||||||2026|False|False
-494|5071489|2026-11-07|Regular|CF Montreal|Vancouver Whitecaps|||||||2026|False|False
-495|5071485|2026-11-07|Regular|Chicago Fire FC|Columbus Crew|||||||2026|False|False
-496|5071487|2026-11-07|Regular|DC United|New York City FC|||||||2026|False|False
-497|5071486|2026-11-07|Regular|FC Cincinnati|Nashville SC|||||||2026|False|False
-498|5071488|2026-11-07|Regular|Inter Miami CF|Charlotte FC|||||||2026|False|False
-499|5071491|2026-11-07|Regular|Orlando City|New England Revolution|||||||2026|False|False
-500|5071492|2026-11-07|Regular|Philadelphia Union|Toronto FC|||||||2026|False|False
-501|5071490|2026-11-07|Regular|Red Bull New York|Atlanta United|||||||2026|False|False
-502|5071493|2026-11-07|Regular|Austin FC|Portland Timbers|||||||2026|False|False
-503|5071494|2026-11-07|Regular|FC Dallas|Colorado Rapids|||||||2026|False|False
-504|5071495|2026-11-07|Regular|Houston Dynamo FC|St. Louis City|||||||2026|False|False
-505|5071496|2026-11-07|Regular|Minnesota United|San Jose Earthquakes|||||||2026|False|False
-506|5071497|2026-11-07|Regular|Real Salt Lake|LA Galaxy|||||||2026|False|False
-507|5071498|2026-11-07|Regular|San Diego FC|Sporting Kansas City|||||||2026|False|False
-508|5071499|2026-11-07|Regular|Seattle Sounders FC|Los Angeles FC|||||||2026|False|False
+449|5071323|2026-10-21|Regular|FC Cincinnati|DC United|||||||2026|False|False
+450|5071444|2026-10-24|Regular|CF Montreal|Nashville SC|||||||2026|False|False
+451|5071442|2026-10-24|Regular|Columbus Crew|Toronto FC|||||||2026|False|False
+452|5071445|2026-10-24|Regular|Red Bull New York|Inter Miami CF|||||||2026|False|False
+453|5071441|2026-10-24|Regular|Atlanta United|Chicago Fire FC|||||||2026|False|False
+454|5071443|2026-10-24|Regular|DC United|FC Cincinnati|||||||2026|False|False
+455|5071446|2026-10-24|Regular|Orlando City|New York City FC|||||||2026|False|False
+456|5071447|2026-10-24|Regular|Philadelphia Union|New England Revolution|||||||2026|False|False
+457|5071448|2026-10-24|Regular|Colorado Rapids|Vancouver Whitecaps|||||||2026|False|False
+458|5071449|2026-10-24|Regular|FC Dallas|San Jose Earthquakes|||||||2026|False|False
+459|5071450|2026-10-24|Regular|Houston Dynamo FC|Minnesota United|||||||2026|False|False
+460|5071453|2026-10-24|Regular|Real Salt Lake|St. Louis City|||||||2026|False|False
+461|5071451|2026-10-24|Regular|Sporting Kansas City|Austin FC|||||||2026|False|False
+462|5071452|2026-10-24|Regular|Portland Timbers|Charlotte FC|||||||2026|False|False
+463|5071454|2026-10-24|Regular|San Diego FC|Seattle Sounders FC|||||||2026|False|False
+464|5071455|2026-10-25|Regular|Los Angeles FC|LA Galaxy|||||||2026|False|False
+465|5071456|2026-10-28|Regular|Charlotte FC|CF Montreal|||||||2026|False|False
+466|5071457|2026-10-28|Regular|Inter Miami CF|FC Cincinnati|||||||2026|False|False
+467|5071458|2026-10-28|Regular|New England Revolution|Red Bull New York|||||||2026|False|False
+468|5071459|2026-10-28|Regular|New York City FC|Atlanta United|||||||2026|False|False
+469|5071460|2026-10-28|Regular|Toronto FC|DC United|||||||2026|False|False
+470|5071461|2026-10-28|Regular|Austin FC|Real Salt Lake|||||||2026|False|False
+471|5071462|2026-10-28|Regular|Chicago Fire FC|Orlando City|||||||2026|False|False
+472|5071463|2026-10-28|Regular|FC Dallas|Columbus Crew|||||||2026|False|False
+473|5071464|2026-10-28|Regular|Minnesota United|Sporting Kansas City|||||||2026|False|False
+474|5071465|2026-10-28|Regular|Nashville SC|Philadelphia Union|||||||2026|False|False
+475|5071468|2026-10-28|Regular|St. Louis City|Portland Timbers|||||||2026|False|False
+476|5071466|2026-10-28|Regular|San Jose Earthquakes|Colorado Rapids|||||||2026|False|False
+477|5071467|2026-10-28|Regular|Seattle Sounders FC|Houston Dynamo FC|||||||2026|False|False
+478|5071469|2026-10-28|Regular|Vancouver Whitecaps|San Diego FC|||||||2026|False|False
+479|5071470|2026-10-31|Regular|Charlotte FC|Orlando City|||||||2026|False|False
+480|5071472|2026-10-31|Regular|Columbus Crew|DC United|||||||2026|False|False
+481|5071471|2026-10-31|Regular|FC Cincinnati|Philadelphia Union|||||||2026|False|False
+482|5071474|2026-10-31|Regular|New York City FC|CF Montreal|||||||2026|False|False
+483|5071476|2026-10-31|Regular|Sporting Kansas City|FC Dallas|||||||2026|False|False
+484|5071479|2026-10-31|Regular|St. Louis City|San Diego FC|||||||2026|False|False
+485|5071477|2026-10-31|Regular|LA Galaxy|Austin FC|||||||2026|False|False
+486|5071478|2026-10-31|Regular|San Jose Earthquakes|Real Salt Lake|||||||2026|False|False
+487|5071475|2026-10-31|Regular|Colorado Rapids|Chicago Fire FC|||||||2026|False|False
+488|5071481|2026-11-01|Regular|Atlanta United|Toronto FC|||||||2026|False|False
+489|5071482|2026-11-01|Regular|Los Angeles FC|Minnesota United|||||||2026|False|False
+490|5071473|2026-11-01|Regular|Nashville SC|Red Bull New York|||||||2026|False|False
+491|5071480|2026-11-01|Regular|Vancouver Whitecaps|Seattle Sounders FC|||||||2026|False|False
+492|5071483|2026-11-01|Regular|New England Revolution|Inter Miami CF|||||||2026|False|False
+493|5071484|2026-11-01|Regular|Portland Timbers|Houston Dynamo FC|||||||2026|False|False
+494|5071429|2026-11-04|Regular|New York City FC|Los Angeles FC|||||||2026|False|False
+495|5071489|2026-11-07|Regular|CF Montreal|Vancouver Whitecaps|||||||2026|False|False
+496|5071485|2026-11-07|Regular|Chicago Fire FC|Columbus Crew|||||||2026|False|False
+497|5071487|2026-11-07|Regular|DC United|New York City FC|||||||2026|False|False
+498|5071486|2026-11-07|Regular|FC Cincinnati|Nashville SC|||||||2026|False|False
+499|5071488|2026-11-07|Regular|Inter Miami CF|Charlotte FC|||||||2026|False|False
+500|5071491|2026-11-07|Regular|Orlando City|New England Revolution|||||||2026|False|False
+501|5071492|2026-11-07|Regular|Philadelphia Union|Toronto FC|||||||2026|False|False
+502|5071490|2026-11-07|Regular|Red Bull New York|Atlanta United|||||||2026|False|False
+503|5071493|2026-11-07|Regular|Austin FC|Portland Timbers|||||||2026|False|False
+504|5071494|2026-11-07|Regular|FC Dallas|Colorado Rapids|||||||2026|False|False
+505|5071495|2026-11-07|Regular|Houston Dynamo FC|St. Louis City|||||||2026|False|False
+506|5071496|2026-11-07|Regular|Minnesota United|San Jose Earthquakes|||||||2026|False|False
+507|5071497|2026-11-07|Regular|Real Salt Lake|LA Galaxy|||||||2026|False|False
+508|5071498|2026-11-07|Regular|San Diego FC|Sporting Kansas City|||||||2026|False|False
+509|5071499|2026-11-07|Regular|Seattle Sounders FC|Los Angeles FC|||||||2026|False|False
