@@ -121,6 +121,7 @@ def simulate_season_vectorized(schedule_home_idx, schedule_away_idx, initial_rat
 def fast_table_from_goals(home_goals, away_goals, home_teams, away_teams,results_summary, team_to_idx):
     n_teams = len(team_to_idx)
     points = np.zeros(n_teams)
+    wins = np.zeros(n_teams)
     goals_for = np.zeros(n_teams)
     goals_against = np.zeros(n_teams)
     
@@ -134,6 +135,8 @@ def fast_table_from_goals(home_goals, away_goals, home_teams, away_teams,results
         
         points[h_idx] += home_wins[i] * 3 + draws[i]
         points[a_idx] += away_wins[i] * 3 + draws[i]
+        wins[h_idx] += home_wins[i]
+        wins[a_idx] += away_wins[i]
         
         goals_for[h_idx] += home_goals[i]
         goals_for[a_idx] += away_goals[i]
@@ -144,26 +147,28 @@ def fast_table_from_goals(home_goals, away_goals, home_teams, away_teams,results
         for team, idx in team_to_idx.items():
             if team in results_summary.index:
                 points[idx] += results_summary.loc[team, 'Points']
+                wins[idx] += results_summary.loc[team,'Wins']
                 goals_for[idx] += results_summary.loc[team, 'F']
                 goals_against[idx] += results_summary.loc[team, 'A']
     
     goal_diff = goals_for - goals_against
     
     ranks = np.zeros(n_teams, dtype=int)
-    for rank, idx in enumerate(np.lexsort((-goals_for, -goal_diff, -points)), 1):
+    for rank, idx in enumerate(np.lexsort((-goals_for, -goal_diff, -wins, -points)), 1):
         ranks[idx] = rank
     
-    return ranks, points, goals_for, goals_against, goal_diff
+    return ranks, points, wins, goals_for, goals_against, goal_diff
 
 def summarize_matches(results):
     summary = pd.concat((
         results[['home_team','home_score','away_score']].rename(columns={'home_team':'Team','home_score':'F','away_score':'A'}),
         results[['away_team','away_score','home_score']].rename(columns={'away_team':'Team','away_score':'F','home_score':'A'})))
 
+    summary['Wins'] = (summary.F > summary.A).astype('int')
     summary['Points'] = ((summary.F > summary.A).astype('int') * 3 + (summary.F == summary.A).astype('int'))
     summary['Goal_D'] = summary.F - summary.A
     summary = summary.groupby('Team').sum().sort_values(['Points','Goal_D','F'],ascending=[False,False,False])
-    summary['rank'] = summary[['Points','Goal_D','F']].apply(tuple,axis=1).rank(method='dense',ascending=False).astype('int')
+    summary['rank'] = summary[['Points','Wins','Goal_D','F']].apply(tuple,axis=1).rank(method='dense',ascending=False).astype('int')
     return summary
 
 def simulate_individual_matches(temp_schedule, ratings_array, team_to_idx,temp_goals, temp_home_field, n_sims):
@@ -245,6 +250,7 @@ def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,
             all_ranks = np.zeros((n_sims, len(teams)), dtype=int)
             all_conf_ranks = np.zeros((n_sims, len(teams)), dtype=int)
             all_points = np.zeros((n_sims, len(teams)))
+            all_wins = np.zeros((n_sims, len(teams)))
             all_gf = np.zeros((n_sims, len(teams)))
             all_ga = np.zeros((n_sims, len(teams)))
             all_gd = np.zeros((n_sims, len(teams)))
@@ -255,23 +261,22 @@ def simulate_season(sim_dates,matches,total_goals,home_field,n_sims,update_rate,
             
             for sim in range(n_sims):
                 home_goals, away_goals = simulate_season_vectorized(schedule_home_idx, schedule_away_idx, ratings_array,temp_goals,temp_home_field, update_rate)
-                ranks, points, gf, ga, gd = fast_table_from_goals(home_goals,away_goals,schedule_home_idx, schedule_away_idx,results_summary,team_to_idx)
+                ranks, points, wins, gf, ga, gd = fast_table_from_goals(home_goals,away_goals,schedule_home_idx, schedule_away_idx,results_summary,team_to_idx)
                 all_ranks[sim] = ranks
                 all_points[sim] = points
+                all_wins[sim] = wins
                 all_gf[sim] = gf
                 all_ga[sim] = ga
                 all_gd[sim] = gd
 
                 conf_ranks = np.zeros(len(teams), dtype=int)
                 for conf_indices in conf_masks.values():
-                    conf_points = points[conf_indices]
-                    conf_gd = gd[conf_indices]
-                    order = np.lexsort(((-conf_gd), (-conf_points)))
+                    order = np.lexsort((-gf[conf_indices], -gd[conf_indices], -wins[conf_indices], -points[conf_indices]))
                     for conf_rank, local_idx in enumerate(order, start=1):
                         conf_ranks[conf_indices[local_idx]] = conf_rank
                 all_conf_ranks[sim] = conf_ranks
             
-            sim_results = pd.DataFrame({'Points': all_points.mean(axis=0),'F': all_gf.mean(axis=0),'A': all_ga.mean(axis=0),'Goal_D': all_gd.mean(axis=0),
+            sim_results = pd.DataFrame({'Points': all_points.mean(axis=0),'Wins':all_points.mean(axis=0),'F': all_gf.mean(axis=0),'A': all_ga.mean(axis=0),'Goal_D': all_gd.mean(axis=0),
                                         'rank': all_ranks.mean(axis=0),'conf_rank': all_conf_ranks.mean(axis=0)}, index=teams)
             for rank in range(1, len(teams) + 1):
                 sim_results[str(rank)] = (all_ranks == rank).mean(axis=0)
